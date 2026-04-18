@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(open \"/Users/hoanglam/Documents/WEB TEDx/index.html\")",
+      "Bash(sips -g pixelWidth -g pixelHeight ~/Downloads/IMG_2927.JPG ~/Downloads/image.png ~/Downloads/DSC00170.JPG ~/Downloads/z7636847187309_0a0f0a36f254f8effd7552ed6700e431.jpg)",
+      "Bash(cp ~/Downloads/image.png \"/Users/hoanglam/Documents/WEB TEDx/images/speakers/tong-truong.png\")",
+      "Bash(cp ~/Downloads/IMG_2927.JPG \"/Users/hoanglam/Documents/WEB TEDx/images/speakers/hien-mai.jpg\")",
+      "Bash(cp ~/Downloads/DSC00170.JPG \"/Users/hoanglam/Documents/WEB TEDx/images/speakers/vinh-nguyen.jpg\")",
+      "Bash(cp ~/Downloads/z7636847187309_0a0f0a36f254f8effd7552ed6700e431.jpg \"/Users/hoanglam/Documents/WEB TEDx/images/speakers/hoang-lam.jpg\")"
+    ]
+  }
+}

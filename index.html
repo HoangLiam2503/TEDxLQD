@@ -1,0 +1,3581 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="TEDxLe Quy Don HS Binh Dinh — Mã. A day of ideas worth spreading, June 28, 2026, Quy Nhon.">
+  <title>TEDxLe Quy Don HS Binh Dinh — Mã</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,700&family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Playfair+Display:ital,wght@0,700;1,400;1,700&display=swap"
+    rel="stylesheet">
+
+  <style>
+    @font-face {
+      font-family: 'UTM Euphoria';
+      src: url('./font/UTM-Euphoria.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    /* ================================================
+       DESIGN TOKENS — monopo-inspired minimal system
+    ================================================ */
+    :root {
+      --bg: #141414;
+      --surface: #1c1d1d;
+      --border: #272828;
+      --border-light: #333434;
+      --red: #E62B1E;
+      --red-dim: rgba(230, 43, 30, 0.15);
+      --text: #f0ede8;
+      --text-dim: #a8a8a8;
+      --text-muted: #b8ab96;
+
+      --font-display: 'Fraunces', serif;
+      --font-serif: 'Playfair Display', serif;
+      --font-body: 'Be Vietnam Pro', sans-serif;
+
+      --nav-h: 60px;
+      --max-w: 1280px;
+      --section-py: clamp(88px, 11vw, 160px);
+
+      --ease-out: cubic-bezier(.165, .84, .44, 1);
+      --ease-in-out: cubic-bezier(.455, .03, .515, .955);
+    }
+
+    /* ================================================
+       RESET & BASE
+    ================================================ */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: var(--nav-h);
+      background: var(--bg);
+      cursor: none;
+    }
+
+    /* Page shader background canvas */
+    #page-shader {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+      display: block;
+    }
+
+    body {
+      background: transparent;
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      cursor: none;
+    }
+
+    button {
+      cursor: none;
+      border: none;
+      background: none;
+      font: inherit;
+      color: inherit;
+    }
+
+    .container {
+      width: min(var(--max-w), 100% - 48px);
+      margin-inline: auto;
+    }
+
+    /* ================================================
+       CUSTOM CURSOR
+    ================================================ */
+    .cursor {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      background: var(--red);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 10002;
+      transform: translate(-50%, -50%);
+      transition: width .3s var(--ease-out), height .3s var(--ease-out), background .3s;
+      will-change: transform;
+    }
+
+    .cursor-ring {
+      position: fixed;
+      width: 36px;
+      height: 36px;
+      border: 1px solid rgba(230, 43, 30, .4);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 10001;
+      transform: translate(-50%, -50%);
+      transition: width .5s var(--ease-out), height .5s var(--ease-out), border-color .3s;
+      will-change: transform;
+    }
+
+    .cursor.hovering {
+      width: 6px;
+      height: 6px;
+      background: var(--text);
+    }
+
+    .cursor-ring.hovering {
+      width: 56px;
+      height: 56px;
+      border-color: rgba(240, 237, 232, .3);
+    }
+
+    /* ================================================
+       ANIMATIONS
+    ================================================ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    .reveal-delay-1 {
+      transition-delay: 0.1s;
+    }
+
+    .reveal-delay-2 {
+      transition-delay: 0.2s;
+    }
+
+    .reveal-delay-3 {
+      transition-delay: 0.3s;
+    }
+
+    .reveal-delay-4 {
+      transition-delay: 0.45s;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(110%);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes ticker {
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(-50%);
+      }
+    }
+
+    /* ================================================
+       NAVIGATION
+    ================================================ */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      height: var(--nav-h);
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.4s, background 0.4s;
+    }
+
+    .nav.scrolled {
+      background: rgba(20, 20, 20, .94);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom-color: var(--border);
+    }
+
+    .nav__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .nav__logo {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 0em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav__logo-red {
+      color: var(--red);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .nav__logo-sep {
+      color: var(--text-muted);
+    }
+
+    .nav__links {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      list-style: none;
+    }
+
+    .nav__links li {
+      border-left: 1px solid var(--border);
+    }
+
+    .nav__links li:last-child {
+      border-left: none;
+      border-right: none;
+    }
+
+    .nav__links a {
+      display: block;
+      padding: 0 22px;
+      height: var(--nav-h);
+      line-height: var(--nav-h);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      transition: color 0.2s, background 0.2s;
+    }
+
+    .nav__links a:hover {
+      color: var(--text);
+      background: rgba(255, 255, 255, .03);
+    }
+
+    .nav__cta {
+      background: var(--red) !important;
+      color: #fff !important;
+      border-radius: 999px !important;
+      margin: 10px 12px !important;
+      height: auto !important;
+      line-height: normal !important;
+      padding: 9px 20px !important;
+    }
+
+    .nav__cta:hover {
+      background: #ff3d2f !important;
+      color: #fff !important;
+    }
+
+    .nav__hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      width: 28px;
+    }
+
+    .nav__hamburger span {
+      display: block;
+      height: 1px;
+      background: var(--text);
+      transition: transform 0.3s, opacity 0.3s;
+      transform-origin: left center;
+    }
+
+    .nav__hamburger.open span:nth-child(1) {
+      transform: rotate(42deg) translateY(-1px);
+    }
+
+    .nav__hamburger.open span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .nav__hamburger.open span:nth-child(3) {
+      transform: rotate(-42deg) translateY(1px);
+    }
+
+    .nav__mobile {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: var(--bg);
+      z-index: 99;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+    }
+
+    .nav__mobile.open {
+      display: flex;
+    }
+
+    .nav__mobile a {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 8vw, 4rem);
+      font-weight: 900;
+      letter-spacing: -0.01em;
+      color: var(--text-dim);
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+      width: 100%;
+      text-align: center;
+      transition: color 0.2s;
+    }
+
+    .nav__mobile a:hover {
+      color: var(--red);
+    }
+
+    /* ================================================
+       HERO
+    ================================================ */
+    /* ================================================
+       HERO — centered banner layout
+    ================================================ */
+    .hero {
+      position: relative;
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* YouTube video background */
+    .hero__video-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .hero__video-bg video {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: max(100%, 177.78vh);
+      height: max(56.25vw, 100%);
+      transform: translate(-50%, -50%);
+      object-fit: cover;
+      pointer-events: none;
+    }
+
+    /* Dark scrim so text stays readable */
+    .hero__video-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: rgba(14, 14, 14, 0.62);
+      pointer-events: none;
+    }
+
+    /* Subtle grid on top of video */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(to right, var(--border) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--border) 1px, transparent 1px);
+      background-size: 80px 80px;
+      opacity: 0.15;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    /* Red glow from top-center */
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: -10%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 70vw;
+      height: 70vw;
+      background: radial-gradient(circle, rgba(230, 43, 30, .12) 0%, transparent 62%);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    /* Dark gradient bottom — makes bottom strip readable */
+    .hero__bg-bottom {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 35%;
+      background: linear-gradient(to top, rgba(20,20,20,.85) 0%, transparent 100%);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    /* ---- Center content ---- */
+    .hero__center {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: calc(var(--nav-h) + 48px) 24px 48px;
+      position: relative;
+      z-index: 3;
+    }
+
+    /* Badge pill */
+    .hero__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-radius: 999px;
+      padding: 6px 14px 6px 6px;
+      margin-bottom: 40px;
+      animation: fadeIn 0.8s 0.2s both;
+    }
+
+    .hero__badge-pill {
+      background: var(--red);
+      color: #fff;
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      border-radius: 999px;
+      padding: 4px 10px;
+      white-space: nowrap;
+    }
+
+    .hero__badge-text {
+      font-size: 0.78rem;
+      color: rgba(240,237,232,.75);
+      font-weight: 400;
+      letter-spacing: 0.02em;
+    }
+
+    /* Title */
+    .hero__title {
+      font-family: var(--font-display);
+      font-size: clamp(80px, 18vw, 220px);
+      font-weight: 900;
+      line-height: 1.0;
+      letter-spacing: -0.01em;
+      position: relative;
+      margin-bottom: 16px;
+    }
+
+    .hero__title-line {
+      display: block;
+      overflow: visible;
+      padding-top: 0.12em;
+    }
+
+    .hero__title-inner {
+      display: block;
+      animation: slideUp 1.1s var(--ease-out) both;
+      font-family: 'UTM Euphoria', serif;
+    }
+
+    /* Serif tagline under title */
+    .hero__tagline {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: clamp(17px, 1.8vw, 24px);
+      font-weight: 400;
+      color: var(--text-dim);
+      margin-bottom: 28px;
+      animation: fadeIn 1s 0.4s both;
+    }
+
+    /* Description */
+    .hero__desc {
+      font-size: clamp(0.88rem, 1.2vw, 1.05rem);
+      color: var(--text-dim);
+      line-height: 1.75;
+      max-width: 540px;
+      margin-bottom: 44px;
+      animation: fadeIn 1s 0.55s both;
+    }
+
+    /* CTA buttons row */
+    .hero__actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      animation: fadeIn 1s 0.7s both;
+    }
+
+    .hero__btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--red);
+      color: #fff;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      padding: 13px 26px;
+      border-radius: 999px;
+      box-shadow: 0 0 0 2px rgba(255,255,255,0.25);
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+
+    .hero__btn-primary:hover {
+      background: #ff3d2f;
+      transform: translateY(-1px);
+    }
+
+    .hero__btn-primary svg {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+    }
+
+    .hero__btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid rgba(255,255,255,.15);
+      background: rgba(255,255,255,.06);
+      color: rgba(240,237,232,.8);
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      padding: 13px 26px;
+      border-radius: 999px;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .hero__btn-secondary:hover {
+      background: rgba(255,255,255,.1);
+      color: var(--text);
+    }
+
+    .hero__btn-secondary svg {
+      width: 13px;
+      height: 13px;
+      flex-shrink: 0;
+    }
+
+    /* Quote strip above bottom bar */
+    .hero__quote-strip {
+      position: relative;
+      z-index: 3;
+      text-align: center;
+      padding: 28px 24px;
+      animation: fadeIn 1s 0.9s both;
+    }
+
+    .hero__quote-text {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: clamp(0.88rem, 1.2vw, 1.05rem);
+      color: var(--text-dim);
+      max-width: 560px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    .hero__quote-text cite {
+      display: block;
+      font-style: normal;
+      font-family: var(--font-body);
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-top: 10px;
+      opacity: 0.8;
+    }
+
+    /* Bottom strip */
+    .hero__bottom {
+      position: relative;
+      z-index: 3;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: stretch;
+      border-top: 1px solid var(--border);
+    }
+
+    .hero__meta-strip {
+      display: flex;
+      align-items: stretch;
+    }
+
+    .hero__meta-item {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 20px 28px;
+      border-right: 1px solid var(--border);
+      animation: fadeIn 1s 0.8s both;
+    }
+
+    .hero__meta-label {
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .hero__meta-value {
+      font-size: 0.85rem;
+      color: var(--text-dim);
+      font-weight: 500;
+    }
+
+    .hero__countdown {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 32px;
+      gap: 0;
+      border-right: 1px solid var(--border);
+      animation: fadeIn 1s 0.85s both;
+    }
+
+    .countdown__unit {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 58px;
+    }
+
+    .countdown__num {
+      font-family: var(--font-display);
+      font-size: clamp(26px, 3vw, 44px);
+      font-weight: 700;
+      line-height: 1.15;
+      color: var(--text);
+      letter-spacing: 0.01em;
+    }
+
+    .countdown__label {
+      font-size: 0.52rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: 3px;
+    }
+
+    .countdown__sep {
+      font-family: var(--font-display);
+      font-size: clamp(20px, 2.5vw, 34px);
+      color: var(--red);
+      line-height: 1;
+      padding: 0 2px;
+      margin-bottom: 14px;
+      opacity: 0.6;
+    }
+
+    .hero__cta-strip {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 20px 28px;
+      animation: fadeIn 1s 0.9s both;
+    }
+
+    .hero__scroll {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      border-radius: 999px;
+      padding: 9px 18px 9px 14px;
+    }
+
+    .hero__scroll-line {
+      display: block;
+      width: 28px;
+      height: 1px;
+      background: var(--text-muted);
+    }
+
+    @media (max-width: 768px) {
+      .hero__bottom { grid-template-columns: 1fr; }
+      .hero__countdown { border-right: none; border-top: 1px solid var(--border); }
+      .hero__cta-strip { border-top: 1px solid var(--border); justify-content: flex-start; }
+      .hero__meta-item { border-right: none; border-bottom: 1px solid var(--border); padding: 16px 20px; }
+    }
+
+    /* ================================================
+       TICKER
+    ================================================ */
+    .ticker {
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+      padding: 14px 0;
+      background: var(--bg);
+    }
+
+    .ticker__track {
+      display: flex;
+      width: max-content;
+      animation: ticker 28s linear infinite;
+    }
+
+    .ticker__item {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      padding-right: 48px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .ticker__item span {
+      color: var(--red);
+      font-size: 0.9em;
+    }
+
+    /* ================================================
+       SECTION COMMON
+    ================================================ */
+    .section {
+      padding-block: var(--section-py);
+      border-top: 1px solid var(--border);
+    }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      border: 1px solid rgba(255,255,255,.1);
+      background: rgba(255,255,255,.04);
+      border-radius: 999px;
+      padding: 7px 16px 7px 8px;
+      margin-bottom: 32px;
+    }
+
+    .section-label em {
+      font-style: normal;
+      background: var(--red);
+      color: #fff;
+      border-radius: 999px;
+      padding: 3px 10px;
+      letter-spacing: 0.12em;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(40px, 6vw, 80px);
+      font-weight: 900;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+    }
+
+    /* ================================================
+       ABOUT
+    ================================================ */
+    .about__layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      background: var(--border);
+    }
+
+    .about__panel {
+      background: var(--bg);
+      padding: 56px 52px;
+    }
+
+    .about__panel--left {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .about__panel--right {
+      background: var(--surface);
+    }
+
+    .about__heading {
+      font-family: var(--font-display);
+      font-size: clamp(40px, 5.5vw, 72px);
+      font-weight: 900;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      margin-bottom: 48px;
+    }
+
+    .about__quote {
+      font-family: var(--font-serif);
+      font-size: clamp(17px, 1.8vw, 24px);
+      font-style: italic;
+      line-height: 1.5;
+      color: var(--text-dim);
+      padding-left: 20px;
+      border-left: 2px solid var(--red);
+      margin-bottom: 40px;
+    }
+
+    .about__body {
+      color: var(--text-dim);
+      font-size: 0.9rem;
+      line-height: 1.9;
+    }
+
+    .about__body p+p {
+      margin-top: 14px;
+    }
+
+    .about__tedx-note {
+      margin-top: 36px;
+      padding: 14px 20px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.03);
+      border-radius: 16px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    .about__stat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      background: var(--border);
+      height: 100%;
+    }
+
+    .about__stat {
+      background: var(--surface);
+      padding: 40px 36px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    .about__stat:nth-child(odd) {
+      background: var(--bg);
+    }
+
+    .about__stat-num {
+      font-family: var(--font-display);
+      font-size: clamp(48px, 5vw, 72px);
+      font-weight: 900;
+      color: var(--red);
+      line-height: 1.15;
+      margin-bottom: 8px;
+    }
+
+    .about__stat-label {
+      font-size: 0.72rem;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+    }
+
+    /* ================================================
+       SPEAKERS
+    ================================================ */
+    .speakers__grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 1px;
+      background: var(--border);
+      margin-top: 60px;
+    }
+
+    /* 3+2 centered layout for 5 cards */
+    .speakers__grid .speaker-card:nth-child(1) { grid-column: 1 / 3; }
+    .speakers__grid .speaker-card:nth-child(2) { grid-column: 3 / 5; }
+    .speakers__grid .speaker-card:nth-child(3) { grid-column: 5 / 7; }
+    .speakers__grid .speaker-card:nth-child(4) { grid-column: 2 / 4; }
+    .speakers__grid .speaker-card:nth-child(5) { grid-column: 4 / 6; }
+
+    .speaker-card {
+      position: relative;
+      background: var(--bg);
+      overflow: hidden;
+      transition: opacity 0.4s var(--ease-out), transform 0.4s var(--ease-out);
+    }
+
+    .speakers__grid.has-hover .speaker-card .speaker-card__photo { filter: grayscale(30%) brightness(0.45); }
+    .speakers__grid.has-hover .speaker-card.is-hovered .speaker-card__photo { filter: grayscale(0%) brightness(1); }
+    .speakers__grid.has-hover .speaker-card { transform: scale(.98); }
+    .speakers__grid.has-hover .speaker-card.is-hovered { transform: scale(1.03); z-index: 2; }
+
+    .speaker-card__portrait {
+      aspect-ratio: 3 / 4;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .speaker-card__photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+      transition: transform 0.6s var(--ease-out), filter 0.4s;
+      filter: grayscale(0%);
+    }
+
+    .speaker-card:hover .speaker-card__photo {
+      transform: scale(1.04);
+    }
+
+    .speaker-card__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(20,20,20,.97) 0%, rgba(20,20,20,.4) 50%, transparent 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 28px 24px;
+    }
+
+    .speaker-card__num {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      color: var(--text-muted);
+    }
+
+    .speaker-card__topic {
+      display: inline-flex;
+      align-items: center;
+      font-size: 0.56rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--red);
+      border: 1px solid rgba(230,43,30,.35);
+      background: rgba(230,43,30,.08);
+      border-radius: 999px;
+      padding: 4px 12px;
+      margin-bottom: 10px;
+    }
+
+    .speaker-card__name {
+      font-family: var(--font-display);
+      font-size: clamp(18px, 1.8vw, 24px);
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+      margin-bottom: 6px;
+    }
+
+    .speaker-card__role {
+      font-size: 0.76rem;
+      color: var(--text-dim);
+      line-height: 1.4;
+    }
+
+    .speaker-card__talk {
+      margin-top: 12px;
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 0.8rem;
+      color: rgba(240,237,232,.45);
+      line-height: 1.45;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 0.3s, transform 0.3s;
+    }
+
+    .speaker-card:hover .speaker-card__talk {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ================================================
+       SCHEDULE
+    ================================================ */
+    .schedule__table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 60px;
+    }
+
+    .schedule__table thead tr {
+      border-bottom: 1px solid rgba(255,255,255,.1);
+    }
+
+    .schedule__table th {
+      padding: 0 0 16px;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.35);
+      text-align: left;
+    }
+
+    .schedule__table th:first-child { width: 110px; }
+    .schedule__table th:nth-child(2) { width: 32px; }
+
+    .schedule__row {
+      border-bottom: 1px solid rgba(255,255,255,.07);
+      border-left: 3px solid transparent;
+      transition: background 0.2s;
+    }
+
+    .schedule__row--highlight {
+      border-left-color: var(--red);
+    }
+
+    .schedule__row:not(.schedule__row--highlight) {
+      border-left-color: rgba(255,255,255,0.35);
+      opacity: 1;
+    }
+
+    .schedule__row:not(.schedule__row--highlight) .schedule__time-cell {
+      color: rgba(255,255,255,.75);
+    }
+
+    .schedule__row:not(.schedule__row--highlight) .schedule__title-cell {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: rgba(255,255,255,.8);
+    }
+
+    .schedule__row:hover {
+      background: rgba(255,255,255,.025);
+    }
+
+    .schedule__row td {
+      padding: 26px 0;
+      vertical-align: top;
+    }
+
+    .schedule__row td:not(:last-child) {
+      padding-right: 28px;
+    }
+
+    /* Time */
+    .schedule__time-cell {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: rgba(255,255,255,.45);
+      padding-top: 4px;
+      white-space: nowrap;
+    }
+
+    .schedule__row--highlight .schedule__time-cell {
+      color: rgba(255,255,255,.9);
+    }
+
+    /* Timeline dot */
+    .schedule__dot-cell {
+      padding-top: 6px;
+      padding-right: 20px !important;
+      position: relative;
+      width: 16px;
+    }
+
+    .schedule__dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.2);
+      border: 1px solid rgba(255,255,255,.3);
+      position: relative;
+      z-index: 1;
+    }
+
+    .schedule__row--highlight .schedule__dot {
+      background: var(--red);
+      border-color: var(--red);
+      box-shadow: 0 0 0 3px rgba(230,43,30,.2), 0 0 12px 4px rgba(230,43,30,.35);
+    }
+
+    /* Vertical connector */
+    .schedule__dot-cell::after {
+      content: '';
+      position: absolute;
+      top: 18px;
+      left: 4px;
+      width: 1px;
+      bottom: -26px;
+      background: rgba(255,255,255,.1);
+      z-index: 0;
+    }
+
+    .schedule__row:last-child .schedule__dot-cell::after { display: none; }
+
+    /* Type tag */
+    .schedule__type-cell {
+      padding-top: 2px;
+      width: 130px;
+    }
+
+    .schedule__type-tag {
+      display: inline-flex;
+      align-items: center;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.5);
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-radius: 999px;
+      padding: 5px 12px;
+      white-space: nowrap;
+    }
+
+    /* Red badge for talks */
+    .schedule__row--highlight .schedule__type-tag {
+      color: var(--red);
+      border-color: rgba(230,43,30,.4);
+      background: rgba(230,43,30,.08);
+      backdrop-filter: blur(8px);
+    }
+
+    /* Content */
+    .schedule__title-cell {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.4;
+    }
+
+    .schedule__row:not(.schedule__row--highlight) .schedule__title-cell {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--red);
+    }
+
+    .schedule__speaker-cell {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: rgba(255,255,255,.5);
+      margin-top: 5px;
+    }
+
+    /* ================================================
+       TICKETS
+    ================================================ */
+    .tickets__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      margin-top: 60px;
+    }
+
+    .ticket-card {
+      background: var(--bg);
+      padding: 48px 40px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .ticket-card--featured {
+      background: var(--surface);
+      border: 1.5px solid var(--red);
+      transform: scale(1.04);
+      z-index: 1;
+    }
+
+    .ticket-card__badge {
+      display: none;
+    }
+
+    .ticket-card--featured .ticket-card__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 32px;
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--red);
+    }
+
+    .ticket-card--featured .ticket-card__badge::before {
+      content: '';
+      display: block;
+      width: 16px;
+      height: 1px;
+      background: var(--red);
+      flex-shrink: 0;
+    }
+
+    .ticket-card__tier {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 28px;
+    }
+
+    .ticket-card--featured .ticket-card__tier {
+      margin-bottom: 0;
+    }
+
+    .ticket-card__price {
+      margin-bottom: 8px;
+      display: flex;
+      align-items: flex-start;
+      gap: 4px;
+    }
+
+    .ticket-card__price-currency {
+      font-size: 1rem;
+      color: var(--text-dim);
+      margin-top: 10px;
+    }
+
+    .ticket-card__price-amount {
+      font-family: var(--font-display);
+      font-size: clamp(52px, 5.5vw, 80px);
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--text);
+    }
+
+    .ticket-card__price-note {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 32px;
+    }
+
+    .ticket-card__divider {
+      height: 1px;
+      background: var(--border);
+      margin-bottom: 28px;
+    }
+
+    .ticket-card__features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex: 1;
+      margin-bottom: 36px;
+    }
+
+    .ticket-card__feature {
+      display: flex;
+      gap: 14px;
+      font-size: 0.84rem;
+      color: var(--text-dim);
+      line-height: 1.4;
+    }
+
+    .ticket-card__feature::before {
+      content: '—';
+      color: var(--red);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .ticket-card__feature.off {
+      color: var(--text-muted);
+    }
+
+    .ticket-card__feature.off::before {
+      content: '—';
+      color: var(--text-muted);
+      opacity: .4;
+    }
+
+    .btn {
+      display: block;
+      text-align: center;
+      padding: 15px 24px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      transition: all 0.2s;
+    }
+
+    .btn--outline {
+      border: 1px solid var(--red);
+      color: var(--red);
+    }
+
+    .btn--outline:hover {
+      background: var(--red);
+      color: #fff;
+    }
+
+    .btn--primary {
+      background: var(--red);
+      color: #fff;
+    }
+
+    .btn--primary:hover {
+      background: #ff3d2f;
+    }
+
+    /* ================================================
+       CTA BAND
+    ================================================ */
+    .cta-band {
+      background: var(--red);
+      padding: clamp(52px, 7vw, 96px) 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Grid lines inside CTA band */
+    .cta-band::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: linear-gradient(to right, rgba(255, 255, 255, .06) 1px, transparent 1px);
+      background-size: 80px;
+    }
+
+    .cta-band__inner {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .cta-band__headline {
+      font-family: var(--font-display);
+      font-size: clamp(34px, 4.5vw, 60px);
+      font-weight: 900;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      color: #fff;
+    }
+
+    .cta-band__sub {
+      font-size: 0.92rem;
+      color: rgba(255, 255, 255, .6);
+      margin-top: 14px;
+      max-width: 340px;
+      line-height: 1.6;
+    }
+
+    .btn--white {
+      background: #fff;
+      color: var(--red);
+      padding: 18px 40px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      transition: opacity 0.2s;
+      white-space: nowrap;
+      display: inline-block;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .btn--white:hover {
+      opacity: 0.88;
+    }
+
+    /* ================================================
+       FAQ
+    ================================================ */
+    .faq__layout {
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .faq__sticky {
+      position: sticky;
+      top: calc(var(--nav-h) + 40px);
+    }
+
+    .faq__intro {
+      font-size: 0.9rem;
+      color: var(--text-dim);
+      line-height: 1.85;
+      margin-top: 24px;
+    }
+
+    .faq__contact {
+      margin-top: 36px;
+      padding: 20px 24px;
+      border: 1px solid rgba(255,255,255,.1);
+      background: rgba(255,255,255,.04);
+      border-radius: 20px;
+    }
+
+    .faq__contact-label {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+
+    .faq__contact-email {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text);
+      background: var(--red);
+      border-radius: 999px;
+      padding: 10px 20px;
+      transition: background 0.2s;
+    }
+
+    .faq__contact-email:hover {
+      background: #ff3d2f;
+    }
+
+    .faq__items {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .faq__item {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .faq__question {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 22px 0;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-dim);
+      transition: color 0.2s;
+      text-align: left;
+      width: 100%;
+    }
+
+    .faq__question:hover,
+    .faq__item.open .faq__question {
+      color: var(--text);
+    }
+
+    .faq__toggle {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      position: relative;
+      margin-top: 2px;
+      color: var(--text-muted);
+    }
+
+    .faq__toggle::before,
+    .faq__toggle::after {
+      content: '';
+      position: absolute;
+      background: currentColor;
+    }
+
+    .faq__toggle::before {
+      width: 10px;
+      height: 1px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .faq__toggle::after {
+      width: 1px;
+      height: 10px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      transition: transform 0.3s;
+    }
+
+    .faq__item.open .faq__toggle::after {
+      transform: translate(-50%, -50%) scaleY(0);
+    }
+
+    .faq__answer {
+      display: none;
+      padding: 0 0 20px;
+      font-size: 0.92rem;
+      font-weight: 500;
+      color: var(--text-dim);
+      line-height: 1.85;
+    }
+
+    .faq__item.open .faq__answer {
+      display: block;
+    }
+
+    /* ================================================
+       FOOTER
+    ================================================ */
+    .footer {
+      border-top: 1px solid var(--border);
+    }
+
+    .footer__top {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 60px;
+      align-items: start;
+      padding: 60px 0 52px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .footer__logo {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 900;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+
+    .footer__logo span {
+      color: var(--red);
+    }
+
+    .footer__tagline {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      max-width: 260px;
+      line-height: 1.7;
+    }
+
+    .footer__links {
+      display: flex;
+      gap: 56px;
+      flex-wrap: wrap;
+    }
+
+    .footer__col-title {
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    .footer__col-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .footer__col-links a {
+      font-size: 0.86rem;
+      color: var(--text-dim);
+      transition: color 0.2s;
+    }
+
+    .footer__col-links a:hover {
+      color: var(--text);
+    }
+
+    .footer__bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 24px 0;
+      flex-wrap: wrap;
+    }
+
+    .footer__legal {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+    }
+
+    .footer__legal a {
+      text-decoration: underline;
+      text-decoration-color: var(--text-muted);
+      text-underline-offset: 3px;
+    }
+
+    .footer__social {
+      display: flex;
+      gap: 0;
+    }
+
+    .footer__social a {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      transition: color 0.2s;
+      padding: 0 18px;
+      border-left: 1px solid var(--border);
+    }
+
+    .footer__social a:last-child {
+      border-right: 1px solid var(--border);
+    }
+
+    .footer__social a:hover {
+      color: var(--text);
+    }
+
+    /* ================================================
+       RESPONSIVE
+    ================================================ */
+    @media (max-width: 1024px) {
+      .about__layout {
+        grid-template-columns: 1fr;
+      }
+
+      .speakers__grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .speakers__grid .speaker-card:nth-child(n) { grid-column: auto; }
+
+      .faq__layout {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+
+      .faq__sticky {
+        position: static;
+      }
+
+      .footer__top {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav__links {
+        display: none;
+      }
+
+      .nav__hamburger {
+        display: flex;
+      }
+
+      .tickets__grid {
+        grid-template-columns: 1fr;
+      }
+
+      .cta-band__inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .footer__links {
+        flex-direction: column;
+        gap: 28px;
+      }
+
+      .about__panel {
+        padding: 40px 28px;
+      }
+
+      .schedule__table th:nth-child(2),
+      .schedule__dot-cell {
+        display: none;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .speakers__grid {
+        grid-template-columns: 1fr;
+      }
+
+      .speakers__grid .speaker-card:nth-child(n) { grid-column: auto; }
+
+      .about__stat-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+    }
+
+    /* ================================================
+       GRAIN OVERLAY — garden-eight inspired
+    ================================================ */
+    @keyframes grain-shift {
+      0%   { transform: translate(0,    0); }
+      10%  { transform: translate(-2%,  -3%); }
+      20%  { transform: translate(3%,   2%); }
+      30%  { transform: translate(-1%,  4%); }
+      40%  { transform: translate(4%,   -1%); }
+      50%  { transform: translate(-3%,  3%); }
+      60%  { transform: translate(2%,   -4%); }
+      70%  { transform: translate(-4%,  1%); }
+      80%  { transform: translate(1%,   -2%); }
+      90%  { transform: translate(-2%,  2%); }
+      100% { transform: translate(0,    0); }
+    }
+
+    .grain-overlay {
+      position: fixed;
+      inset: -40%;          /* oversized so shift stays seamless */
+      width: 180%;
+      height: 180%;
+      z-index: 9990;
+      pointer-events: none;
+      opacity: 0.045;
+      animation: grain-shift 0.6s steps(1) infinite;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 300px 300px;
+    }
+
+    /* Subtle vignette — darkens corners like garden-eight */
+    .vignette {
+      position: fixed;
+      inset: 0;
+      z-index: 9989;
+      pointer-events: none;
+      background: radial-gradient(
+        ellipse 80% 70% at 50% 50%,
+        transparent 50%,
+        rgba(10, 10, 10, 0.55) 100%
+      );
+    }
+    /* ================================================
+       CHECKOUT MODAL
+    ================================================ */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      background: rgba(10, 10, 10, 0.82);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s var(--ease-out);
+    }
+
+    .modal-backdrop.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modal {
+      background: #1a1a1a;
+      border: 1px solid var(--border-light);
+      border-radius: 16px;
+      width: 100%;
+      max-width: 480px;
+      max-height: 90vh;
+      overflow-y: auto;
+      transform: translateY(24px) scale(0.97);
+      transition: transform 0.35s var(--ease-out);
+      scrollbar-width: none;
+    }
+
+    .modal::-webkit-scrollbar { display: none; }
+
+    .modal-backdrop.open .modal {
+      transform: translateY(0) scale(1);
+    }
+
+    .modal__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 24px 28px 0;
+    }
+
+    .modal__title {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .modal__close {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.06);
+      border: 1px solid var(--border);
+      color: var(--text-dim);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .modal__close:hover {
+      background: rgba(255,255,255,.12);
+      color: var(--text);
+    }
+
+    /* Ticket summary pill */
+    .modal__summary {
+      margin: 20px 28px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .modal__summary-tier {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 4px;
+    }
+
+    .modal__summary-price {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: var(--text);
+      line-height: 1;
+    }
+
+    .modal__summary-unit {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-top: 3px;
+    }
+
+    .modal__qty {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 6px 10px;
+    }
+
+    .modal__qty-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.08);
+      color: var(--text);
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+      line-height: 1;
+    }
+
+    .modal__qty-btn:hover { background: rgba(255,255,255,.16); }
+    .modal__qty-num {
+      font-weight: 600;
+      font-size: 0.95rem;
+      min-width: 20px;
+      text-align: center;
+    }
+
+    /* Form fields */
+    .modal__form {
+      padding: 0 28px 28px;
+    }
+
+    .form-field {
+      margin-bottom: 16px;
+    }
+
+    .form-field label {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 8px;
+    }
+
+    .form-field input {
+      width: 100%;
+      background: rgba(255,255,255,.04);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 13px 16px;
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 0.92rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-field input::placeholder { color: var(--text-muted); }
+    .form-field input:focus { border-color: var(--border-light); }
+    .form-field input.error { border-color: var(--red); }
+
+    /* Payment methods */
+    .modal__payment-title {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 10px;
+    }
+
+    .payment-methods {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .payment-method {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 13px 16px;
+      cursor: none;
+      transition: border-color 0.2s;
+    }
+
+    .payment-method:has(input:checked) {
+      border-color: var(--border-light);
+      background: rgba(255,255,255,.07);
+    }
+
+    .payment-method input[type="radio"] {
+      width: 16px;
+      height: 16px;
+      accent-color: var(--red);
+      cursor: none;
+    }
+
+    .payment-method span {
+      font-size: 0.88rem;
+      font-weight: 500;
+    }
+
+    .payment-method .pay-icon {
+      margin-left: auto;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    /* Total row */
+    .modal__total {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--border);
+      padding-top: 16px;
+      margin-bottom: 20px;
+    }
+
+    .modal__total-label {
+      font-size: 0.8rem;
+      color: var(--text-dim);
+    }
+
+    .modal__total-amount {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 900;
+    }
+
+    /* Submit button */
+    .modal__submit {
+      width: 100%;
+      background: var(--red);
+      color: #fff;
+      border-radius: 999px;
+      padding: 15px 24px;
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .modal__submit:hover { background: #ff3d2f; }
+    .modal__submit:active { transform: scale(0.98); }
+
+    /* Success screen */
+    .modal__success {
+      display: none;
+      padding: 40px 28px;
+      text-align: center;
+    }
+
+    .modal__success.show { display: block; }
+    .modal__form-wrap.hide { display: none; }
+
+    .modal__success-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: rgba(230,43,30,.12);
+      border: 1px solid rgba(230,43,30,.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+    }
+
+    .modal__success-title {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 900;
+      margin-bottom: 10px;
+    }
+
+    .modal__success-sub {
+      font-size: 0.88rem;
+      color: var(--text-dim);
+      line-height: 1.6;
+      margin-bottom: 28px;
+    }
+
+    /* Bank transfer info box */
+    .bank-info {
+      background: rgba(255,255,255,.04);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: left;
+      margin-bottom: 24px;
+    }
+
+    .bank-info__row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.85rem;
+    }
+
+    .bank-info__row:last-child { border-bottom: none; padding-bottom: 0; }
+    .bank-info__row:first-child { padding-top: 0; }
+
+    .bank-info__label { color: var(--text-muted); }
+    .bank-info__value { font-weight: 600; color: var(--text); }
+    .bank-info__value.highlight { color: var(--red); font-family: var(--font-display); font-size: 1rem; }
+
+    .modal__success-note {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* QR screens */
+    .modal__step { display: none; padding: 28px; text-align: center; }
+    .modal__step.active { display: block; }
+
+    .modal__step-title {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 900;
+      margin-bottom: 6px;
+    }
+
+    .modal__step-sub {
+      font-size: 0.82rem;
+      color: var(--text-dim);
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    /* VietQR */
+    .modal__vietqr {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .modal__vietqr img {
+      width: 260px;
+      height: 260px;
+      border-radius: 12px;
+      background: #fff;
+      padding: 8px;
+      display: block;
+      object-fit: contain;
+    }
+
+    .modal__qr-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    /* Transfer ref pill */
+    .modal__ref {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255,255,255,.05);
+      border: 1px solid var(--border-light);
+      border-radius: 10px;
+      padding: 10px 16px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      margin-bottom: 20px;
+      width: 100%;
+      justify-content: space-between;
+    }
+
+    .modal__ref-copy {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      transition: color 0.2s;
+    }
+
+    .modal__ref-copy:hover { color: var(--text); }
+
+    /* Ticket QR */
+    .modal__ticket-qr {
+      background: #fff;
+      border-radius: 16px;
+      padding: 20px;
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+
+    .modal__ticket-qr img {
+      width: 200px;
+      height: 200px;
+      display: block;
+    }
+
+    .modal__ticket-info {
+      background: rgba(255,255,255,.04);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 18px;
+      text-align: left;
+      margin-bottom: 16px;
+      font-size: 0.82rem;
+    }
+
+    .modal__ticket-info div {
+      display: flex;
+      justify-content: space-between;
+      padding: 5px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .modal__ticket-info div:last-child { border-bottom: none; }
+    .modal__ticket-info span:first-child { color: var(--text-muted); }
+    .modal__ticket-info span:last-child { font-weight: 600; }
+
+    .modal__confirmed-btn {
+      width: 100%;
+      background: rgba(255,255,255,.06);
+      border: 1px solid var(--border-light);
+      border-radius: 999px;
+      padding: 13px 24px;
+      font-family: var(--font-body);
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: var(--text);
+      text-transform: uppercase;
+      transition: background 0.2s;
+      margin-bottom: 12px;
+    }
+
+    .modal__confirmed-btn:hover { background: rgba(255,255,255,.11); }
+
+    .modal__save-note {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- Page shader background -->
+  <canvas id="page-shader" aria-hidden="true"></canvas>
+
+  <!-- Grain + vignette — garden-eight inspired -->
+  <div class="grain-overlay" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+
+  <!-- Custom cursor -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- ===================== NAVIGATION ===================== -->
+  <nav class="nav" id="nav">
+    <div class="container nav__inner">
+      <a href="#" class="nav__logo">
+        <span class="nav__logo-red">TEDx</span>
+        <span class="nav__logo-sep">/</span>
+        Le Quy Don HS Binh Dinh
+      </a>
+      <ul class="nav__links">
+        <li><a href="#about">Giới thiệu</a></li>
+        <li><a href="#speakers">Speakers</a></li>
+        <li><a href="#schedule">Lịch trình</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#tickets" class="nav__cta">Đặt vé</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Toggle navigation menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="nav__mobile" id="mobileMenu" aria-hidden="true">
+    <a href="#about" class="mobile-link">Giới thiệu</a>
+    <a href="#speakers" class="mobile-link">Speakers</a>
+    <a href="#schedule" class="mobile-link">Lịch trình</a>
+    <a href="#tickets" class="mobile-link">Đặt vé</a>
+    <a href="#faq" class="mobile-link">FAQ</a>
+  </div>
+
+  <main>
+
+    <!-- ===================== HERO ===================== -->
+    <section class="hero" id="hero" aria-label="Event hero">
+      <!-- Video background -->
+      <div class="hero__video-bg" aria-hidden="true">
+        <video autoplay muted loop playsinline>
+          <source src="./YTDown.com_YouTube_TEDx-intro-video_Media_JSP7GPU3Eic_001_1080p.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="hero__video-overlay" aria-hidden="true"></div>
+      <div class="hero__bg-bottom" aria-hidden="true"></div>
+
+      <!-- Center content -->
+      <div class="hero__center">
+
+        <!-- Badge pill -->
+        <div class="hero__badge">
+          <span class="hero__badge-pill">2026</span>
+          <span class="hero__badge-text">Gia Lai, Việt Nam · 28 tháng 6</span>
+        </div>
+
+        <!-- Title -->
+        <h1 class="hero__title">
+          <span class="hero__title-line">
+            <span class="hero__title-inner">Mã</span>
+          </span>
+        </h1>
+
+        <!-- Tagline -->
+        <p class="hero__tagline">"Ideas worth spreading."</p>
+
+        <!-- Description -->
+        <p class="hero__desc">
+          Một ngày khám phá những ý tưởng có thể thay đổi thế giới — từ giáo dục, công nghệ đến con người và xã hội.
+          Cùng lắng nghe, kết nối và lan tỏa cảm hứng tại TEDxLe Quy Don HS Binh Dinh 2026.
+        </p>
+
+        <!-- CTA buttons -->
+        <div class="hero__actions">
+          <a href="#tickets" class="hero__btn-primary">
+            Đặt vé ngay
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+          <a href="#about" class="hero__btn-secondary">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"/></svg>
+            Xem giới thiệu
+          </a>
+        </div>
+
+      </div>
+
+      <!-- Quote strip -->
+      <div class="hero__quote-strip">
+        <p class="hero__quote-text">
+          "The more that you read, the more things you will know. The more that you learn, the more places you'll go."
+          <cite>— Dr. Seuss</cite>
+        </p>
+      </div>
+
+      <!-- Bottom info strip -->
+      <div class="hero__bottom">
+        <div class="hero__meta-strip">
+          <div class="hero__meta-item">
+            <span class="hero__meta-label">Ngày</span>
+            <span class="hero__meta-value">28 tháng 6, 2026</span>
+          </div>
+          <div class="hero__meta-item">
+            <span class="hero__meta-label">Địa điểm</span>
+            <span class="hero__meta-value">Gia Lai, Việt Nam</span>
+          </div>
+          <div class="hero__meta-item">
+            <span class="hero__meta-label">Giờ mở cửa</span>
+            <span class="hero__meta-value">8:30 sáng</span>
+          </div>
+        </div>
+
+        <div class="hero__countdown" aria-label="Đếm ngược đến sự kiện">
+          <div class="countdown__unit">
+            <span class="countdown__num" id="cd-days-num">--</span>
+            <span class="countdown__label">Ngày</span>
+          </div>
+          <span class="countdown__sep" aria-hidden="true">:</span>
+          <div class="countdown__unit">
+            <span class="countdown__num" id="cd-hours-num">--</span>
+            <span class="countdown__label">Giờ</span>
+          </div>
+          <span class="countdown__sep" aria-hidden="true">:</span>
+          <div class="countdown__unit">
+            <span class="countdown__num" id="cd-mins-num">--</span>
+            <span class="countdown__label">Phút</span>
+          </div>
+          <span class="countdown__sep" aria-hidden="true">:</span>
+          <div class="countdown__unit">
+            <span class="countdown__num" id="cd-secs-num">--</span>
+            <span class="countdown__label">Giây</span>
+          </div>
+        </div>
+
+        <div class="hero__cta-strip">
+          <div class="hero__scroll" aria-hidden="true">
+            <span class="hero__scroll-line"></span>
+            Cuộn để khám phá
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- TICKER -->
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker__track">
+        <div class="ticker__item"><span>✦</span> TEDxLe Quy Don HS Binh Dinh <span>✦</span> 28 tháng 6, 2026
+          <span>✦</span> Gia Lai, Việt Nam <span>✦</span> Mã <span>✦</span> Ideas Worth Spreading
+        </div>
+        <div class="ticker__item"><span>✦</span> TEDxLe Quy Don HS Binh Dinh <span>✦</span> 28 tháng 6, 2026
+          <span>✦</span> Gia Lai, Việt Nam <span>✦</span> Mã <span>✦</span> Ideas Worth Spreading
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== ABOUT ===================== -->
+    <section class="section" id="about">
+      <div class="container">
+        <p class="section-label"><em>01</em> Về sự kiện</p>
+      </div>
+
+      <div style="width: min(var(--max-w), 100% - 48px); margin-inline: auto;">
+        <div class="about__layout">
+          <div class="about__panel about__panel--left reveal">
+            <h2 class="about__heading">TEDxLe<br>Quy Don<br>HS Binh<br>Dinh là gì?</h2>
+            <blockquote class="about__quote">
+              "Ideas have the power to change attitudes, lives, and ultimately the world."
+            </blockquote>
+            <div class="about__body">
+              <p>TEDxLe Quy Don HS Binh Dinh là sự kiện TED được tổ chức độc lập bởi Trường THPT Lê Quý Đôn, Gia Lai —
+                mang đến những nhà tư tưởng, người sáng tạo và hành động ấn tượng nhất thế giới. Với chủ đề <strong
+                  style="color:var(--text)">Mã</strong>, chương trình 2026 khám phá cách một ý tưởng, khoảnh khắc hay
+                hành động đơn lẻ có thể châm ngòi chuỗi biến đổi lan rộng qua cộng đồng, ngành nghề và thế hệ.</p>
+              <p>Từ thần kinh học đến thiết kế xã hội, từ tái tạo bản thân đến thay đổi hệ thống — speakers của chúng
+                tôi đại diện cho toàn bộ phổ tò mò và tham vọng của con người.</p>
+            </div>
+            <div class="about__tedx-note reveal reveal-delay-2">
+              <strong style="color:var(--text-dim)">TEDxLe Quy Don HS Binh Dinh được tổ chức độc lập theo giấy phép
+                TED.</strong> Quan điểm của các speakers là của riêng họ và không nhất thiết phản ánh quan điểm của TED.
+            </div>
+          </div>
+
+          <div class="about__panel about__panel--right reveal reveal-delay-1">
+            <div class="about__stat-grid">
+              <div class="about__stat">
+                <div class="about__stat-num">6</div>
+                <div class="about__stat-label">Speakers</div>
+              </div>
+              <div class="about__stat">
+                <div class="about__stat-num">1</div>
+                <div class="about__stat-label">Cả ngày</div>
+              </div>
+              <div class="about__stat">
+                <div class="about__stat-num">300+</div>
+                <div class="about__stat-label">Khán giả</div>
+              </div>
+              <div class="about__stat">
+                <div class="about__stat-num">∞</div>
+                <div class="about__stat-label">Ý tưởng</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== SPEAKERS ===================== -->
+    <section class="section" id="speakers">
+      <div class="container">
+        <p class="section-label"><em>02</em> Đội ngũ 2026</p>
+        <h2 class="section-title reveal">Gặp gỡ<br>Speakers</h2>
+      </div>
+
+      <div style="width: min(var(--max-w), 100% - 48px); margin-inline: auto;">
+        <div class="speakers__grid">
+
+          <article class="speaker-card reveal">
+            <div class="speaker-card__portrait">
+              <img src="images/speakers/tong-truong.png" alt="Tông Trương" class="speaker-card__photo">
+            </div>
+            <div class="speaker-card__overlay">
+              <span class="speaker-card__num">01</span>
+              <span class="speaker-card__topic">Giáo dục</span>
+              <h3 class="speaker-card__name">Tong Truong</h3>
+              <p class="speaker-card__role">Founder Nhà IELTS</p>
+            </div>
+          </article>
+
+          <article class="speaker-card reveal reveal-delay-1">
+            <div class="speaker-card__portrait">
+              <img src="images/speakers/hien-mai.jpg" alt="Hiền Mai" class="speaker-card__photo" style="object-position: center center;">
+            </div>
+            <div class="speaker-card__overlay">
+              <span class="speaker-card__num">02</span>
+              <span class="speaker-card__topic">Giáo dục</span>
+              <h3 class="speaker-card__name">Hien Mai</h3>
+              <p class="speaker-card__role">Thủ khoa khối A00 năm 2025</p>
+            </div>
+          </article>
+
+          <article class="speaker-card reveal reveal-delay-2">
+            <div class="speaker-card__portrait">
+              <img src="images/speakers/Vinh Nguyen 2.jpg" alt="Vinh Nguyễn" class="speaker-card__photo" style="transform: scale(1.1); object-position: center 20%;">
+            </div>
+            <div class="speaker-card__overlay">
+              <span class="speaker-card__num">03</span>
+              <span class="speaker-card__topic">Khám phá</span>
+              <h3 class="speaker-card__name">Vinh Nguyen</h3>
+              <p class="speaker-card__role">KOL</p>
+            </div>
+          </article>
+
+          <article class="speaker-card reveal reveal-delay-3">
+            <div class="speaker-card__portrait">
+              <img src="images/speakers/Y Nhi.jpg" alt="Ý Nhi" class="speaker-card__photo">
+            </div>
+            <div class="speaker-card__overlay">
+              <span class="speaker-card__num">04</span>
+              <span class="speaker-card__topic">Hoa Hậu</span>
+              <h3 class="speaker-card__name">Y Nhi</h3>
+              <p class="speaker-card__role">Miss World 2023</p>
+            </div>
+          </article>
+
+          <article class="speaker-card reveal reveal-delay-4">
+            <div class="speaker-card__portrait">
+              <img src="images/speakers/Nhat Minh.jpg" alt="Nhật Minh" class="speaker-card__photo">
+            </div>
+            <div class="speaker-card__overlay">
+              <span class="speaker-card__num">05</span>
+              <span class="speaker-card__topic">Giáo dục</span>
+              <h3 class="speaker-card__name">Nhat Minh</h3>
+              <p class="speaker-card__role">Giám đốc Điều hành, Minh Khuu Academy</p>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== SCHEDULE ===================== -->
+    <section class="section" id="schedule">
+      <div class="container">
+        <p class="section-label"><em>03</em> 28 tháng 6, 2026</p>
+        <h2 class="section-title reveal" style="font-family:var(--font-display);color:#fff;">Chương trình<br>trong ngày</h2>
+
+        <table class="schedule__table" role="table">
+          <thead>
+            <tr>
+              <th scope="col">Giờ</th>
+              <th scope="col"></th>
+              <th scope="col">Loại</th>
+              <th scope="col">Nội dung</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <tr class="schedule__row reveal">
+              <td class="schedule__time-cell">08:30</td>
+              <td class="schedule__dot-cell">
+                <div class="schedule__dot"></div>
+              </td>
+              <td class="schedule__type-cell"><span class="schedule__type-tag">Đăng ký</span></td>
+              <td>
+                <div class="schedule__title-cell">Mở cửa &amp; Cà phê chào mừng</div>
+              </td>
+            </tr>
+
+            <tr class="schedule__row schedule__row--highlight reveal">
+              <td class="schedule__time-cell">09:30</td>
+              <td class="schedule__dot-cell">
+                <div class="schedule__dot"></div>
+              </td>
+              <td class="schedule__type-cell"><span class="schedule__type-tag">Khai mạc</span></td>
+              <td>
+                <div class="schedule__title-cell">Lễ khai mạc</div>
+                <div class="schedule__speaker-cell">Ban tổ chức TEDxLe Quy Don HS Binh Dinh</div>
+              </td>
+            </tr>
+
+            <tr class="schedule__row schedule__row--highlight reveal">
+              <td class="schedule__time-cell">10:00</td>
+              <td class="schedule__dot-cell">
+                <div class="schedule__dot"></div>
+              </td>
+              <td class="schedule__type-cell"><span class="schedule__type-tag">Bài nói · 01</span></td>
+              <td>
+                <div class="schedule__title-cell">How One Decision Changes Everything</div>
+                <div class="schedule__speaker-cell">Nguyen Minh Khoa</div>
+              </td>
+            </tr>
+
+            <tr class="schedule__row schedule__row--highlight reveal">
+              <td class="schedule__time-cell">10:35</td>
+              <td class="schedule__dot-cell">
+                <div class="schedule__dot"></div>
+              </td>
+              <td class="schedule__type-cell"><span class="schedule__type-tag">Bài nói · 02</span></td>
+              <td>
+                <div class="schedule__title-cell">The Architecture of Collective Memory</div>
+                <div class="schedule__speaker-cell">Sarah Chen</div>
+              </td>
+            </tr>
+
+            <tr class="schedule__row reveal">
+              <td class="schedule__time-cell">11:10</td>
+              <td class="schedule__dot-cell">
+                <div class="schedule__dot"></div>
+              </td>
+              <td class="schedule__type-cell"><span class="schedule__type-tag">Nghỉ giải lao</span></td>
+              <td>
+                <div class="schedule__title-cell">Cà phê sáng &amp; Giao lưu</div>
+              </td>
+            </tr>
+
+            <tr class="schedule__row schedule__row--highlight reveal">
+              <td class="schedule__time-cell">11:40</td>
+              <td class="schedule__dot-cell">
+                <div class="schedule__dot"></div>
+              </td>
+              <td class="schedule__type-cell"><span class="schedule__type-tag">Bài nói · 03</span></td>
+              <td>
+                <div class="schedule__title-cell">Building AI That Feels Human</div>
+                <div class="schedule__speaker-cell">Marcus Johnson</div>
+              </td>
+            </tr>
+
+            <tr class="schedule__row reveal">
+              <td class="schedule__time-cell">12:15</td>
+              <td class="schedule__dot-cell">
+                <div class="schedule__dot"></div>
+              </td>
+              <td class="schedule__type-cell"><span class="schedule__type-tag">Nghỉ giải lao</span></td>
+              <td>
+                <div class="schedule__title-cell">Ăn trưa &amp; Khu triển lãm mở cửa</div>
+              </td>
+            </tr>
+
+            <tr class="schedule__row schedule__row--highlight reveal">
+              <td class="schedule__time-cell">13:30</td>
+              <td class="schedule__dot-cell">
+                <div class="schedule__dot"></div>
+              </td>
+              <td class="schedule__type-cell"><span class="schedule__type-tag">Bài nói · 04</span></td>
+              <td>
+                <div class="schedule__title-cell">From Rice Fields to Silicon Valley</div>
+                <div class="schedule__speaker-cell">Linh Tran</div>
+              </td>
+            </tr>
+
+            <tr class="schedule__row schedule__row--highlight reveal">
+              <td class="schedule__time-cell">14:05</td>
+              <td class="schedule__dot-cell">
+                <div class="schedule__dot"></div>
+              </td>
+              <td class="schedule__type-cell"><span class="schedule__type-tag">Bài nói · 05</span></td>
+              <td>
+                <div class="schedule__title-cell">Rewiring Anxiety: A Brain's Journey</div>
+                <div class="schedule__speaker-cell">Dr. David Park</div>
+              </td>
+            </tr>
+
+            <tr class="schedule__row reveal">
+              <td class="schedule__time-cell">14:40</td>
+              <td class="schedule__dot-cell">
+                <div class="schedule__dot"></div>
+              </td>
+              <td class="schedule__type-cell"><span class="schedule__type-tag">Nghỉ giải lao</span></td>
+              <td>
+                <div class="schedule__title-cell">Cà phê chiều</div>
+              </td>
+            </tr>
+
+            <tr class="schedule__row schedule__row--highlight reveal">
+              <td class="schedule__time-cell">15:10</td>
+              <td class="schedule__dot-cell">
+                <div class="schedule__dot"></div>
+              </td>
+              <td class="schedule__type-cell"><span class="schedule__type-tag">Bài nói · 06</span></td>
+              <td>
+                <div class="schedule__title-cell">Design as a Language for Change</div>
+                <div class="schedule__speaker-cell">Amara Osei</div>
+              </td>
+            </tr>
+
+            <tr class="schedule__row reveal">
+              <td class="schedule__time-cell">15:45</td>
+              <td class="schedule__dot-cell">
+                <div class="schedule__dot"></div>
+              </td>
+              <td class="schedule__type-cell"><span class="schedule__type-tag">Thảo luận nhóm</span></td>
+              <td>
+                <div class="schedule__title-cell">Thảo luận: Mã</div>
+                <div class="schedule__speaker-cell">Tất cả Speakers</div>
+              </td>
+            </tr>
+
+            <tr class="schedule__row reveal">
+              <td class="schedule__time-cell">16:45</td>
+              <td class="schedule__dot-cell">
+                <div class="schedule__dot"></div>
+              </td>
+              <td class="schedule__type-cell"><span class="schedule__type-tag">Tiệc chiêu đãi</span></td>
+              <td>
+                <div class="schedule__title-cell">Phát biểu bế mạc &amp; Tiệc giao lưu</div>
+              </td>
+            </tr>
+
+            <tr class="schedule__row reveal">
+              <td class="schedule__time-cell">18:00</td>
+              <td class="schedule__dot-cell">
+                <div class="schedule__dot"></div>
+              </td>
+              <td class="schedule__type-cell"><span class="schedule__type-tag">Kết thúc</span></td>
+              <td>
+                <div class="schedule__title-cell">Bế mạc</div>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ===================== TICKETS ===================== -->
+    <section class="section" id="tickets">
+      <div class="container">
+        <p class="section-label"><em>04</em> Đăng ký</p>
+        <h2 class="section-title reveal">Đặt vé<br>của bạn</h2>
+
+        <div class="tickets__grid">
+
+          <div class="ticket-card reveal">
+            <div class="ticket-card__tier">Tiêu chuẩn</div>
+            <div class="ticket-card__price">
+              <span class="ticket-card__price-amount">69K</span>
+            </div>
+            <p class="ticket-card__price-note">Mỗi người · Bao gồm tất cả phiên</p>
+            <div class="ticket-card__divider"></div>
+            <ul class="ticket-card__features">
+              <li class="ticket-card__feature">Tham dự toàn bộ bài nói trong ngày</li>
+              <li class="ticket-card__feature">Cà phê sáng &amp; chiều</li>
+              <li class="ticket-card__feature">Bao gồm bữa trưa</li>
+              <li class="ticket-card__feature">Tham quan khu triển lãm</li>
+              <li class="ticket-card__feature off">Ưu tiên ghế hàng đầu</li>
+              <li class="ticket-card__feature off">Giao lưu VIP sau sự kiện</li>
+              <li class="ticket-card__feature off">Video ghi lại các bài nói</li>
+            </ul>
+            <button type="button" class="btn btn--outline open-checkout" data-tier="Tiêu chuẩn" data-price="69000">Đăng ký ngay</button>
+          </div>
+
+          <div class="ticket-card ticket-card--featured reveal reveal-delay-1">
+            <div class="ticket-card__badge">Phổ biến nhất</div>
+            <div class="ticket-card__tier">Premium</div>
+            <div class="ticket-card__price">
+              <span class="ticket-card__price-amount">89K</span>
+            </div>
+            <p class="ticket-card__price-note">Mỗi người · Phổ biến nhất</p>
+            <div class="ticket-card__divider"></div>
+            <ul class="ticket-card__features">
+              <li class="ticket-card__feature">Tham dự toàn bộ bài nói trong ngày</li>
+              <li class="ticket-card__feature">Cà phê sáng &amp; chiều</li>
+              <li class="ticket-card__feature">Bao gồm bữa trưa</li>
+              <li class="ticket-card__feature">Tham quan khu triển lãm</li>
+              <li class="ticket-card__feature">Ưu tiên ghế hàng đầu</li>
+              <li class="ticket-card__feature">Giao lưu VIP sau sự kiện</li>
+              <li class="ticket-card__feature off">Video ghi lại các bài nói</li>
+            </ul>
+            <button type="button" class="btn btn--primary open-checkout" data-tier="Premium" data-price="89000">Đăng ký ngay</button>
+          </div>
+
+          <div class="ticket-card reveal reveal-delay-2">
+            <div class="ticket-card__tier">Deluxe</div>
+            <div class="ticket-card__price">
+              <span class="ticket-card__price-amount">99K</span>
+            </div>
+            <p class="ticket-card__price-note">Mỗi người · Hỗ trợ phát triển</p>
+            <div class="ticket-card__divider"></div>
+            <ul class="ticket-card__features">
+              <li class="ticket-card__feature">Tham dự toàn bộ bài nói trong ngày</li>
+              <li class="ticket-card__feature">Cà phê sáng &amp; chiều</li>
+              <li class="ticket-card__feature">Bao gồm bữa trưa</li>
+              <li class="ticket-card__feature">Tham quan khu triển lãm</li>
+              <li class="ticket-card__feature">Ưu tiên ghế hàng đầu</li>
+              <li class="ticket-card__feature">Giao lưu VIP sau sự kiện</li>
+              <li class="ticket-card__feature">Video ghi lại các bài nói</li>
+            </ul>
+            <button type="button" class="btn btn--outline open-checkout" data-tier="Deluxe" data-price="99000">Đăng ký ngay</button>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== CTA BAND ===================== -->
+    <div class="cta-band" aria-label="Call to action">
+      <div class="container">
+        <div class="cta-band__inner">
+          <div>
+            <h2 class="cta-band__headline">Ideas worth<br>spreading.</h2>
+            <p class="cta-band__sub">Số ghế giới hạn 300 người. Đặt chỗ của bạn trước khi hết.</p>
+          </div>
+          <a href="#tickets" class="btn--white">Đặt chỗ ngay</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== FAQ ===================== -->
+    <section class="section" id="faq">
+      <div class="container">
+        <p class="section-label"><em>05</em> Câu hỏi</p>
+
+        <div class="faq__layout">
+
+          <div class="faq__sticky reveal">
+            <h2 class="section-title">Thường<br>gặp</h2>
+            <p class="faq__intro">Không tìm thấy câu trả lời? Đội ngũ chúng tôi phản hồi trong vòng 24 giờ.</p>
+            <div class="faq__contact">
+              <p class="faq__contact-label">Liên hệ</p>
+              <a href="mailto:hello@tedxlqd.com" class="faq__contact-email">
+                hello@tedxlqd.com
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </a>
+            </div>
+          </div>
+
+          <div class="faq__right reveal reveal-delay-1">
+            <div class="faq__items">
+
+              <div class="faq__item">
+                <button class="faq__question">
+                  TEDx là gì và khác TED như thế nào?
+                  <span class="faq__toggle" aria-hidden="true"></span>
+                </button>
+                <div class="faq__answer">Sự kiện TEDx được tổ chức độc lập theo giấy phép của TED. Trong khi TED Talks
+                  diễn ra trên sân khấu toàn cầu, TEDx mang trải nghiệm TED đến cộng đồng địa phương — cùng tiêu chuẩn
+                  cao về nội dung ý tưởng, ngay tại địa phương của bạn.</div>
+              </div>
+
+              <div class="faq__item">
+                <button class="faq__question">
+                  Tôi có thể hoàn tiền nếu không tham dự được không?
+                  <span class="faq__toggle" aria-hidden="true"></span>
+                </button>
+                <div class="faq__answer">Ban tổ chức không hỗ trợ hoàn tiền dưới bất kì hoàn cảnh nào. Trong trường hợp muốn sang vé cho người khác, liên hệ với ban tổ chức để được hỗ trợ.</div>
+              </div>
+
+              <div class="faq__item">
+                <button class="faq__question">
+                  Địa điểm có tiếp cận được cho người khuyết tật không?
+                  <span class="faq__toggle" aria-hidden="true"></span>
+                </button>
+                <div class="faq__answer">Có. Địa điểm hoàn toàn thân thiện với người khuyết tật, có chỗ xe lăn, nhà vệ
+                  sinh tiếp cận và hệ thống hỗ trợ âm thanh. Vui lòng liên hệ trước để chúng tôi hỗ trợ tốt nhất.</div>
+              </div>
+
+              <div class="faq__item">
+                <button class="faq__question">
+                  Các bài nói có được đăng tải trực tuyến sau sự kiện không?
+                  <span class="faq__toggle" aria-hidden="true"></span>
+                </button>
+                <div class="faq__answer">Bài nói của các diễn giả sẽ được đăng trên kênh Youtube TEDx Talk sau sự kiện trong thời gian sớm nhất.</div>
+              </div>
+
+              <div class="faq__item">
+                <button class="faq__question">
+                  Sau khi thanh toán, tôi nhận vé bằng cách nào?
+                  <span class="faq__toggle" aria-hidden="true"></span>
+                </button>
+                <div class="faq__answer">Sau khi bạn xác nhận hoàn thành thanh toán, ban tổ chức sẽ xác nhận giao dịch và gửi mail thông báo mua vé thành công trong vòng 24h.</div>
+              </div>
+
+              <div class="faq__item">
+                <button class="faq__question">
+                  Có giới hạn độ tuổi tham dự không?
+                  <span class="faq__toggle" aria-hidden="true"></span>
+                </button>
+                <div class="faq__answer">Sự kiện không giới hạn lứa tuổi tham dự. Tuy nhiên với các trường hợp người tham gia có độ tuổi từ 14 trở xuống phải có người giám hộ đi theo.</div>
+              </div>
+
+              <div class="faq__item">
+                <button class="faq__question">
+                  Tôi có thể đăng ký làm diễn giả không?
+                  <span class="faq__toggle" aria-hidden="true"></span>
+                </button>
+                <div class="faq__answer">Đơn đăng ký diễn giả 2026 đã đóng. Đơn cho TEDxLe Quy Don HS Binh Dinh 2027 sẽ
+                  mở vào tháng 1 năm 2027. Theo dõi mạng xã hội của chúng tôi để được thông báo khi đơn mở.</div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__top">
+        <div class="footer__brand">
+          <div class="footer__logo"><span>TEDx</span>Le Quy Don<br>HS Binh Dinh</div>
+          <p class="footer__tagline">Ý tưởng đáng lan tỏa, từ Trường THPT Lê Quý Đôn, Gia Lai.</p>
+        </div>
+        <nav class="footer__links" aria-label="Footer navigation">
+          <div class="footer__col">
+            <p class="footer__col-title">Sự kiện</p>
+            <ul class="footer__col-links">
+              <li><a href="#about">Giới thiệu</a></li>
+              <li><a href="#speakers">Speakers</a></li>
+              <li><a href="#schedule">Lịch trình</a></li>
+              <li><a href="#tickets">Vé</a></li>
+            </ul>
+          </div>
+          <div class="footer__col">
+            <p class="footer__col-title">Thông tin</p>
+            <ul class="footer__col-links">
+              <li><a href="#faq">FAQ</a></li>
+              <li><a href="#">Quy tắc ứng xử</a></li>
+              <li><a href="#">Tài liệu báo chí</a></li>
+            </ul>
+          </div>
+          <div class="footer__col">
+            <p class="footer__col-title">Liên hệ</p>
+            <ul class="footer__col-links">
+              <li><a href="mailto:hello@tedxlqd.com">hello@tedxlqd.com</a></li>
+              <li><a href="mailto:media@tedxlqd.com">media@tedxlqd.com</a></li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__legal">
+          © 2026 TEDxLe Quy Don HS Binh Dinh. Được tổ chức độc lập theo <a href="#">giấy phép TED</a>. TED và TEDx là
+          thương hiệu đã đăng ký của TED Conferences LLC.
+        </p>
+        <div class="footer__social">
+          <a href="#" aria-label="Instagram">IG</a>
+          <a href="#" aria-label="Facebook">FB</a>
+          <a href="#" aria-label="LinkedIn">LI</a>
+          <a href="#" aria-label="YouTube">YT</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===================== CHECKOUT MODAL ===================== -->
+  <div class="modal-backdrop" id="checkoutBackdrop" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-hidden="true">
+    <div class="modal" id="checkoutModal">
+
+      <div class="modal__header">
+        <h3 class="modal__title" id="modalTitle">Đăng ký vé</h3>
+        <button type="button" class="modal__close" id="modalClose" aria-label="Đóng">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- Ticket summary -->
+      <div class="modal__summary">
+        <div>
+          <div class="modal__summary-tier" id="modalTier">Premium</div>
+          <div class="modal__summary-price" id="modalPrice">89.000 ₫</div>
+          <div class="modal__summary-unit">mỗi người</div>
+        </div>
+        <div class="modal__qty">
+          <button type="button" class="modal__qty-btn" id="qtyMinus" aria-label="Giảm">−</button>
+          <span class="modal__qty-num" id="qtyNum">1</span>
+          <button type="button" class="modal__qty-btn" id="qtyPlus" aria-label="Tăng">+</button>
+        </div>
+      </div>
+
+      <!-- Form + payment -->
+      <div class="modal__form-wrap" id="formWrap">
+        <form class="modal__form" id="checkoutForm" novalidate>
+
+          <div class="form-field">
+            <label for="f-name">Họ và tên</label>
+            <input type="text" id="f-name" name="fullname" placeholder="Nguyễn Văn A" autocomplete="name" required>
+          </div>
+          <div class="form-field">
+            <label for="f-email">Email</label>
+            <input type="email" id="f-email" name="email" placeholder="email@example.com" autocomplete="email" required>
+          </div>
+          <div class="form-field">
+            <label for="f-phone">Số điện thoại</label>
+            <input type="tel" id="f-phone" name="phone" placeholder="0901 234 567" autocomplete="tel" required>
+          </div>
+
+          <p class="modal__payment-title">Phương thức thanh toán</p>
+          <div class="payment-methods">
+            <label class="payment-method">
+              <input type="radio" name="payment" value="bank" checked>
+              <span>Chuyển khoản ngân hàng</span>
+              <span class="pay-icon">MB Bank · VietQR</span>
+            </label>
+          </div>
+
+          <div class="modal__total">
+            <span class="modal__total-label">Tổng cộng</span>
+            <span class="modal__total-amount" id="modalTotal">89.000 ₫</span>
+          </div>
+
+          <button type="submit" class="modal__submit">Xác nhận đặt vé →</button>
+        </form>
+      </div>
+
+      <!-- Step 1: Payment QR -->
+      <div class="modal__step" id="stepPayment">
+        <h4 class="modal__step-title">Quét QR để thanh toán</h4>
+        <p class="modal__step-sub">Mở app ngân hàng, quét mã VietQR bên dưới.<br>Số tiền &amp; nội dung được điền sẵn tự động.</p>
+
+        <div class="modal__vietqr">
+          <span class="modal__qr-label" id="payQrLabel">Chuyển khoản ngân hàng</span>
+          <img id="payQrImg" src="" alt="QR thanh toán" loading="lazy">
+        </div>
+
+        <div class="modal__ref" id="payRef">
+          <span id="payRefText">TEDX2026-</span>
+          <button type="button" class="modal__ref-copy" id="copyRefBtn">Sao chép</button>
+        </div>
+
+        <div class="bank-info" id="bankInfo"></div>
+
+        <button type="button" class="modal__submit" id="confirmedPayBtn">
+          Tôi đã chuyển tiền →
+        </button>
+        <p class="modal__save-note" style="margin-top:12px;">Sau khi ấn xác nhận, vé của bạn sẽ hiện ngay.<br>BTC sẽ đối chiếu danh sách tại cửa sự kiện.</p>
+      </div>
+
+      <!-- Step 2: Confirmation -->
+      <div class="modal__step" id="stepTicket">
+        <div class="modal__success-icon" style="margin-bottom:20px;">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#E62B1E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <h4 class="modal__step-title">Chúng tôi đã nhận được!</h4>
+        <p class="modal__step-sub">Ban tổ chức sẽ xác nhận thanh toán và gửi vé về email của bạn trong vòng <strong>24 giờ</strong>.</p>
+        <div class="modal__ticket-info" id="ticketInfo" style="margin-bottom:20px;"></div>
+        <p class="modal__save-note">Liên hệ <strong>hello@tedxlqd.com</strong> nếu chưa nhận được sau 24 giờ.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // ---- Page Background Shader ----
+    (function initPageShader() {
+      const canvas = document.getElementById('page-shader');
+      if (!canvas) return;
+      const gl = canvas.getContext('webgl2');
+      if (!gl) { canvas.remove(); return; }
+
+      const VERT = `#version 300 es
+precision highp float;
+layout(location=0) in vec2 a_pos;
+out vec2 v_uv;
+void main(){ v_uv=a_pos*0.5+0.5; gl_Position=vec4(a_pos,0.0,1.0); }`;
+
+      const FRAG = `#version 300 es
+precision highp float;
+out vec4 fragColor;
+in vec2 v_uv;
+uniform vec3  iResolution;
+uniform float iTime;
+uniform int   iFrame;
+
+const float GRID_SCALE   = 18.0;
+const float MAJOR_STEP   = 4.0;
+const float THIN_WIDTH   = 0.010;
+const float MAJOR_WIDTH  = 0.018;
+const float SCROLL_SPEED = 0.02;
+const float VIGNETTE_AMT = 0.28;
+const float MESH_AMT     = 0.85;
+const float NOISE_AMT    = 0.030;
+const float DITHER_DARK  = 0.010;
+const float DITHER_LIGHT = 0.004;
+const float ASCII_AMT    = 0.23;
+const float ASCII_SCALE  = 26.0;
+const float ASCII_EVERY  = 2.0;
+
+float bayer4(vec2 p){
+  ivec2 ip=ivec2(int(mod(p.x,4.0)),int(mod(p.y,4.0)));
+  int idx=ip.y*4+ip.x;
+  int m[16];
+  m[0]=0;m[1]=8;m[2]=2;m[3]=10;m[4]=12;m[5]=4;m[6]=14;m[7]=6;
+  m[8]=3;m[9]=11;m[10]=1;m[11]=9;m[12]=15;m[13]=7;m[14]=13;m[15]=5;
+  return float(m[idx])/15.0;
+}
+float hash21(vec2 p){ p=fract(p*vec2(123.34,456.21)); p+=dot(p,p+45.32); return fract(p.x*p.y); }
+float vnoise(vec2 p){
+  vec2 i=floor(p),f=fract(p);
+  float a=hash21(i),b=hash21(i+vec2(1,0)),c=hash21(i+vec2(0,1)),d=hash21(i+vec2(1,1));
+  vec2 u=f*f*(3.0-2.0*f);
+  return mix(mix(a,b,u.x),mix(c,d,u.x),u.y);
+}
+float gridLineAA(vec2 uv,float scale,float width){
+  vec2 g=abs(fract(uv*scale)-0.5);
+  float d=min(g.x,g.y),aa=fwidth(d);
+  return 1.0-smoothstep(width,width+aa,d);
+}
+float majorGridAA(vec2 uv,float scale,float stepN,float width){
+  return gridLineAA(uv,max(1.0,scale/stepN),width);
+}
+vec3 meshGradient(vec2 uv){
+  vec2 p0=vec2(-0.70,-0.45),p1=vec2(0.75,-0.35),p2=vec2(-0.65,0.65),p3=vec2(0.80,0.55);
+  vec3 c0=vec3(0.05,0.10,0.26),c1=vec3(0.08,0.16,0.36),c2=vec3(0.03,0.09,0.22),c3=vec3(0.10,0.20,0.40);
+  float e=2.0;
+  float w0=pow(1.0/(0.2+distance(uv,p0)),e),w1=pow(1.0/(0.2+distance(uv,p1)),e);
+  float w2=pow(1.0/(0.2+distance(uv,p2)),e),w3=pow(1.0/(0.2+distance(uv,p3)),e);
+  float ws=w0+w1+w2+w3;
+  return (c0*w0+c1*w1+c2*w2+c3*w3)/ws;
+}
+float sdLineX(vec2 p,float w){ return 1.0-smoothstep(w,w+fwidth(p.y),abs(p.y)); }
+float sdLineY(vec2 p,float w){ return 1.0-smoothstep(w,w+fwidth(p.x),abs(p.x)); }
+float sdDiag1(vec2 p,float w){ float d=abs(p.x+p.y)/sqrt(2.0); return 1.0-smoothstep(w,w+fwidth(d),d); }
+float sdDiag2(vec2 p,float w){ float d=abs(p.x-p.y)/sqrt(2.0); return 1.0-smoothstep(w,w+fwidth(d),d); }
+float sdDot(vec2 p,float r){ float d=length(p); return 1.0-smoothstep(r,r+fwidth(d),d); }
+float asciiGlyph(vec2 c,float level){
+  float w=0.11,r=0.10;
+  float g0=sdDot(c,r),g1=sdLineX(c,w),g2=sdLineY(c,w),g3=max(sdLineX(c,w),sdLineY(c,w));
+  float g4=sdDiag1(c,w),g5=sdDiag2(c,w),g6=max(sdDiag1(c,w),sdDiag2(c,w));
+  float g7=max(sdLineX(c,w),max(sdLineY(c,w),g6));
+  float m=0.0;
+  m=mix(m,g0,smoothstep(0.00,0.12,level)*(1.0-step(level,0.12)));
+  m=mix(m,g1,smoothstep(0.12,0.28,level)*(1.0-step(level,0.28)));
+  m=mix(m,g2,smoothstep(0.28,0.44,level)*(1.0-step(level,0.44)));
+  m=mix(m,g3,smoothstep(0.44,0.60,level)*(1.0-step(level,0.60)));
+  m=mix(m,g4,smoothstep(0.60,0.72,level)*(1.0-step(level,0.72)));
+  m=mix(m,g5,smoothstep(0.72,0.84,level)*(1.0-step(level,0.84)));
+  m=mix(m,g6,smoothstep(0.84,0.94,level)*(1.0-step(level,0.94)));
+  m=mix(m,g7,smoothstep(0.94,1.00,level));
+  return clamp(m,0.0,1.0);
+}
+
+void main(){
+  vec2 R=iResolution.xy;
+  float t=iTime;
+  vec2 uv=(gl_FragCoord.xy-0.5*R)/max(R.y,1.0);
+
+  vec3 bg=mix(vec3(0.03,0.06,0.12),vec3(0.05,0.09,0.18),smoothstep(-0.92,0.55,-uv.y));
+  bg=mix(bg,meshGradient(uv),MESH_AMT);
+  bg*=clamp(pow(1.0-VIGNETTE_AMT*length(uv),1.0),0.0,1.0);
+
+  vec2 uvAnim=uv+SCROLL_SPEED*t*normalize(vec2(1.0,-0.55));
+
+  // Checkerboard — alternating cells like a chessboard
+  vec2 cellIdx=floor(uvAnim*GRID_SCALE);
+  float chess=mod(cellIdx.x+cellIdx.y,2.0);
+  bg=mix(bg,mix(vec3(0.018,0.038,0.105),vec3(0.040,0.082,0.195),chess),0.55);
+
+  float thin=gridLineAA(uvAnim,GRID_SCALE,THIN_WIDTH);
+  float major=majorGridAA(uvAnim,GRID_SCALE,MAJOR_STEP,MAJOR_WIDTH);
+
+  vec3 col=bg
+    +vec3(0.58,0.66,0.95)*thin*0.25
+    +vec3(0.78,0.84,1.00)*major*0.52;
+
+  // ASCII glyph overlay on major grid intersections
+  vec2 uMajor=uvAnim*(GRID_SCALE/MAJOR_STEP);
+  vec2 idx2=floor(uMajor+0.5);
+  float selX=1.0-step(0.001,abs(fract(idx2.x/ASCII_EVERY)));
+  float selY=1.0-step(0.001,abs(fract(idx2.y/ASCII_EVERY)));
+  float asciiMask=max(selX,selY)*major;
+  if(ASCII_AMT>0.001){
+    vec2 cellF=fract(uv*ASCII_SCALE)-0.5;
+    float lvl=clamp(dot(col,vec3(0.2126,0.7152,0.0722)),0.0,1.0);
+    vec3 aColor=mix(vec3(0.50,0.70,1.0),meshGradient(uv),0.25);
+    col=mix(col,col+aColor*asciiGlyph(cellF,lvl)*0.30,ASCII_AMT*asciiMask);
+  }
+
+  col+=(vnoise(gl_FragCoord.xy*0.6+vec2(t*12.0,-t*9.0))-0.5)*NOISE_AMT;
+  float luma=dot(col,vec3(0.2126,0.7152,0.0722));
+  col+=(bayer4(gl_FragCoord.xy)-0.5)*mix(DITHER_DARK,DITHER_LIGHT,luma);
+  col=tanh(col);
+  fragColor=vec4(col,1.0);
+}`;
+
+      function compile(type, src) {
+        const s = gl.createShader(type);
+        gl.shaderSource(s, src); gl.compileShader(s);
+        if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) { console.error(gl.getShaderInfoLog(s)); gl.deleteShader(s); return null; }
+        return s;
+      }
+      const vs = compile(gl.VERTEX_SHADER, VERT);
+      const fs = compile(gl.FRAGMENT_SHADER, FRAG);
+      if (!vs || !fs) return;
+      const prog = gl.createProgram();
+      gl.attachShader(prog, vs); gl.attachShader(prog, fs);
+      gl.linkProgram(prog);
+      gl.deleteShader(vs); gl.deleteShader(fs);
+      if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) { console.error(gl.getProgramInfoLog(prog)); return; }
+
+      const vao = gl.createVertexArray();
+      gl.bindVertexArray(vao);
+      const vbo = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, vbo);
+      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 3,-1, -1,3]), gl.STATIC_DRAW);
+      gl.enableVertexAttribArray(0);
+      gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
+
+      const uRes   = gl.getUniformLocation(prog, 'iResolution');
+      const uTime  = gl.getUniformLocation(prog, 'iTime');
+      const uFrame = gl.getUniformLocation(prog, 'iFrame');
+      const start  = performance.now();
+      let frame = 0;
+
+      function resize() {
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        canvas.width  = Math.floor(window.innerWidth  * dpr);
+        canvas.height = Math.floor(window.innerHeight * dpr);
+        gl.viewport(0, 0, canvas.width, canvas.height);
+      }
+      resize();
+      window.addEventListener('resize', resize, { passive: true });
+
+      function tick() {
+        gl.useProgram(prog);
+        gl.bindVertexArray(vao);
+        gl.uniform3f(uRes, canvas.width, canvas.height, window.devicePixelRatio || 1);
+        gl.uniform1f(uTime, (performance.now() - start) / 1000);
+        gl.uniform1i(uFrame, ++frame);
+        gl.drawArrays(gl.TRIANGLES, 0, 3);
+        requestAnimationFrame(tick);
+      }
+      tick();
+    })();
+
+    // ---- Custom cursor ----
+    const cursor = document.getElementById('cursor');
+    const cursorRing = document.getElementById('cursorRing');
+    let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
+
+    document.addEventListener('mousemove', e => {
+      mouseX = e.clientX; mouseY = e.clientY;
+      cursor.style.left = mouseX + 'px';
+      cursor.style.top = mouseY + 'px';
+    });
+
+    // Smooth ring follow
+    (function animateRing() {
+      ringX += (mouseX - ringX) * 0.12;
+      ringY += (mouseY - ringY) * 0.12;
+      cursorRing.style.left = ringX + 'px';
+      cursorRing.style.top = ringY + 'px';
+      requestAnimationFrame(animateRing);
+    })();
+
+    document.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        cursor.classList.add('hovering');
+        cursorRing.classList.add('hovering');
+      });
+      el.addEventListener('mouseleave', () => {
+        cursor.classList.remove('hovering');
+        cursorRing.classList.remove('hovering');
+      });
+    });
+
+    // ---- Nav scroll ----
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 80);
+    }, { passive: true });
+
+    // ---- Scroll reveal ----
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // ---- Mobile menu ----
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    let menuOpen = false;
+
+    hamburger.addEventListener('click', () => {
+      menuOpen = !menuOpen;
+      hamburger.classList.toggle('open', menuOpen);
+      mobileMenu.classList.toggle('open', menuOpen);
+      mobileMenu.setAttribute('aria-hidden', String(!menuOpen));
+      document.body.style.overflow = menuOpen ? 'hidden' : '';
+    });
+
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => {
+        menuOpen = false;
+        hamburger.classList.remove('open');
+        mobileMenu.classList.remove('open');
+        mobileMenu.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      });
+    });
+
+    // ---- Speaker card hover ----
+    const speakersGrid = document.querySelector('.speakers__grid');
+    if (speakersGrid) {
+      document.querySelectorAll('.speaker-card').forEach(card => {
+        card.addEventListener('mouseenter', () => {
+          speakersGrid.classList.add('has-hover');
+          card.classList.add('is-hovered');
+        });
+        card.addEventListener('mouseleave', () => {
+          card.classList.remove('is-hovered');
+          if (!speakersGrid.querySelector('.speaker-card.is-hovered')) {
+            speakersGrid.classList.remove('has-hover');
+          }
+        });
+      });
+    }
+
+    // ---- FAQ accordion ----
+    document.querySelectorAll('.faq__item').forEach(item => {
+      item.querySelector('.faq__question').addEventListener('click', () => {
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq__item').forEach(i => i.classList.remove('open'));
+        if (!isOpen) item.classList.add('open');
+      });
+    });
+
+    // ---- Countdown ----
+    (function initCountdown() {
+      const target = new Date('2026-06-28T08:30:00+07:00').getTime();
+      const daysEl = document.getElementById('cd-days-num');
+      const hoursEl = document.getElementById('cd-hours-num');
+      const minsEl = document.getElementById('cd-mins-num');
+      const secsEl = document.getElementById('cd-secs-num');
+      const pad = n => String(n).padStart(2, '0');
+
+      function tick() {
+        const diff = target - Date.now();
+        if (diff <= 0) {
+          daysEl.textContent = hoursEl.textContent = minsEl.textContent = secsEl.textContent = '00';
+          return;
+        }
+        daysEl.textContent = pad(Math.floor(diff / 86400000));
+        hoursEl.textContent = pad(Math.floor((diff % 86400000) / 3600000));
+        minsEl.textContent = pad(Math.floor((diff % 3600000) / 60000));
+        secsEl.textContent = pad(Math.floor((diff % 60000) / 1000));
+      }
+
+      tick();
+      setInterval(tick, 1000);
+    })();
+
+    // ---- Checkout Modal ----
+    (function initCheckout() {
+      // ---- Config — REPLACE before launch ----
+      const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby6OhXkZaGwMs5h4E_GRkhxYXms2sB_m3G7mgyMzpTol91Dbcmp6jwqGlLMxxmXUwtO/exec';
+
+      const BANK = {
+        id:      'MB',
+        account: '0905242000',
+        name:    'NGUYEN PHAM HOANG LAM',
+        label:   'MB Bank',
+      };
+      const MOMO_PHONE = '0905242000';
+      // -----------------------------------------
+
+      const backdrop      = document.getElementById('checkoutBackdrop');
+      const modalClose    = document.getElementById('modalClose');
+      const tierEl        = document.getElementById('modalTier');
+      const priceEl       = document.getElementById('modalPrice');
+      const totalEl       = document.getElementById('modalTotal');
+      const qtyNum        = document.getElementById('qtyNum');
+      const qtyMinus      = document.getElementById('qtyMinus');
+      const qtyPlus       = document.getElementById('qtyPlus');
+      const form          = document.getElementById('checkoutForm');
+      const formWrap      = document.getElementById('formWrap');
+      const stepPayment   = document.getElementById('stepPayment');
+      const stepTicket    = document.getElementById('stepTicket');
+      const payQrImg      = document.getElementById('payQrImg');
+      const payQrLabel    = document.getElementById('payQrLabel');
+      const payRefText    = document.getElementById('payRefText');
+      const bankInfo      = document.getElementById('bankInfo');
+      const confirmedBtn  = document.getElementById('confirmedPayBtn');
+      const ticketInfo    = document.getElementById('ticketInfo');
+      const copyRefBtn    = document.getElementById('copyRefBtn');
+
+      let unitPrice = 89000;
+      let qty = 1;
+      let currentRef = '';
+
+      const fmt = n => n.toLocaleString('vi-VN') + ' ₫';
+
+      function genOrderId() {
+        return 'TEDX' + Date.now().toString(36).toUpperCase().slice(-6);
+      }
+
+      function qrUrl(data) {
+        return 'https://api.qrserver.com/v1/create-qr-code/?size=220x220&ecc=M&data=' + encodeURIComponent(data);
+      }
+
+      function updateTotal() {
+        totalEl.textContent = fmt(unitPrice * qty);
+      }
+
+      function showStep(step) {
+        stepPayment.classList.remove('active');
+        stepTicket.classList.remove('active');
+        step.classList.add('active');
+      }
+
+      function openModal(tier, price) {
+        unitPrice = price; qty = 1;
+        qtyNum.textContent = qty;
+        tierEl.textContent = tier;
+        priceEl.textContent = fmt(price);
+        updateTotal();
+
+        formWrap.classList.remove('hide');
+        stepPayment.classList.remove('active');
+        stepTicket.classList.remove('active');
+        form.reset();
+        form.querySelectorAll('.error').forEach(el => el.classList.remove('error'));
+
+        backdrop.classList.add('open');
+        backdrop.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeModal() {
+        backdrop.classList.remove('open');
+        backdrop.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+
+      // Open buttons
+      document.addEventListener('click', function(e) {
+        const btn = e.target.closest('.open-checkout');
+        if (btn) { openModal(btn.dataset.tier, parseInt(btn.dataset.price, 10)); return; }
+        const heroBtn = e.target.closest('.hero__btn-primary');
+        if (heroBtn) { e.preventDefault(); openModal('Premium', 89000); }
+      });
+
+      modalClose.addEventListener('click', closeModal);
+      backdrop.addEventListener('click', e => { if (e.target === backdrop) closeModal(); });
+      document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+      qtyMinus.addEventListener('click', () => { if (qty > 1)  { qty--; qtyNum.textContent = qty; updateTotal(); } });
+      qtyPlus.addEventListener('click',  () => { if (qty < 10) { qty++; qtyNum.textContent = qty; updateTotal(); } });
+
+      // Copy ref button
+      copyRefBtn.addEventListener('click', () => {
+        navigator.clipboard?.writeText(currentRef).then(() => {
+          copyRefBtn.textContent = 'Đã sao chép!';
+          setTimeout(() => copyRefBtn.textContent = 'Sao chép', 2000);
+        });
+      });
+
+      // Form submit → show payment QR
+      form.addEventListener('submit', e => {
+        e.preventDefault();
+        let valid = true;
+        ['f-name', 'f-email', 'f-phone'].forEach(id => {
+          const el = document.getElementById(id);
+          if (!el.value.trim()) { el.classList.add('error'); valid = false; }
+          else el.classList.remove('error');
+        });
+        if (!valid) return;
+
+        const method   = form.querySelector('input[name="payment"]:checked').value;
+        const name     = document.getElementById('f-name').value.trim();
+        const tier     = tierEl.textContent;
+        const amount   = unitPrice * qty;
+        const orderId  = genOrderId();
+        currentRef     = `TEDX ${tier.toUpperCase()} ${name.split(' ').pop().toUpperCase()} ${orderId}`;
+
+        payRefText.textContent = currentRef;
+
+        payQrImg.src = `https://img.vietqr.io/image/${BANK.id}-${BANK.account}-compact2.png`
+          + `?amount=${amount}`
+          + `&addInfo=${encodeURIComponent(currentRef)}`
+          + `&accountName=${encodeURIComponent(BANK.name)}`;
+        payQrLabel.textContent = `Quét bằng app ngân hàng · ${BANK.label}`;
+        bankInfo.innerHTML = `
+          <div class="bank-info__row"><span class="bank-info__label">Ngân hàng</span><span class="bank-info__value">${BANK.label}</span></div>
+          <div class="bank-info__row"><span class="bank-info__label">Số tài khoản</span><span class="bank-info__value">${BANK.account}</span></div>
+          <div class="bank-info__row"><span class="bank-info__label">Chủ tài khoản</span><span class="bank-info__value">${BANK.name}</span></div>
+          <div class="bank-info__row"><span class="bank-info__label">Số tiền</span><span class="bank-info__value highlight">${fmt(amount)}</span></div>
+          <div class="bank-info__row"><span class="bank-info__label">Nội dung CK</span><span class="bank-info__value">${currentRef}</span></div>`;
+
+        // Store ticket data for step 2
+        const email = document.getElementById('f-email').value.trim();
+        const phone = document.getElementById('f-phone').value.trim();
+        confirmedBtn._ticketData = { orderId, name, email, phone, tier, qty, amount };
+
+        formWrap.classList.add('hide');
+        showStep(stepPayment);
+      });
+
+      // "Đã chuyển tiền" → gửi lên Sheet + show confirmation
+      confirmedBtn.addEventListener('click', () => {
+        const { orderId, name, email, phone, tier, qty, amount } = confirmedBtn._ticketData;
+
+        // Disable button để tránh double-submit
+        confirmedBtn.disabled = true;
+        confirmedBtn.textContent = 'Đang gửi...';
+
+        fetch(APPS_SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          body: JSON.stringify({ orderId, name, email, phone, tier, qty, amount: fmt(amount), ref: currentRef }),
+        })
+        .finally(() => {
+          // Dù thành công hay lỗi vẫn hiển thị xác nhận cho user
+          ticketInfo.innerHTML = `
+            <div><span>Mã đơn</span><span>${orderId}</span></div>
+            <div><span>Họ tên</span><span>${name}</span></div>
+            <div><span>Email</span><span>${email}</span></div>
+            <div><span>Loại vé</span><span>${tier}</span></div>
+            <div><span>Số lượng</span><span>${qty} vé</span></div>
+            <div><span>Tổng tiền</span><span>${fmt(amount)}</span></div>
+            <div><span>Sự kiện</span><span>28·06·2026 · Gia Lai</span></div>`;
+
+          confirmedBtn.disabled = false;
+          confirmedBtn.textContent = 'Tôi đã chuyển tiền →';
+          showStep(stepTicket);
+        });
+      });
+
+      // Cursor hover for modal elements
+      document.addEventListener('mouseover', e => {
+        const el = e.target.closest('.modal__close, .modal__qty-btn, .modal__submit, .modal__confirmed-btn, .payment-method, .open-checkout, #confirmedPayBtn, #copyRefBtn');
+        if (el) {
+          document.getElementById('cursor')?.classList.add('hovering');
+          document.getElementById('cursorRing')?.classList.add('hovering');
+        }
+      });
+      document.addEventListener('mouseout', e => {
+        const el = e.target.closest('.modal__close, .modal__qty-btn, .modal__submit, .modal__confirmed-btn, .payment-method, .open-checkout, #confirmedPayBtn, #copyRefBtn');
+        if (el) {
+          document.getElementById('cursor')?.classList.remove('hovering');
+          document.getElementById('cursorRing')?.classList.remove('hovering');
+        }
+      });
+    })();
+  </script>
+
+</body>
+
+</html>
