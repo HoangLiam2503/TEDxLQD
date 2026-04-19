@@ -1757,19 +1757,74 @@
       .schedule__dot-cell {
         display: none;
       }
-    }
 
-    @media (max-width: 480px) {
       .speakers__grid {
         grid-template-columns: 1fr;
       }
 
       .speakers__grid .speaker-card:nth-child(n) { grid-column: auto; }
+    }
 
-      .about__stat-grid {
-        grid-template-columns: 1fr 1fr;
+    /* ── Touch devices: remove all hover effects & custom cursor ── */
+    @media (hover: none) {
+      * { cursor: auto !important; }
+      .cursor, .cursor-ring { display: none !important; }
+
+      .nav__links a:hover,
+      .nav__cta:hover,
+      .hero__btn-primary:hover,
+      .hero__btn-secondary:hover,
+      .speaker-card:hover .speaker-card__photo,
+      .speaker-card:hover .speaker-card__talk,
+      .schedule__row:hover,
+      .btn--outline:hover,
+      .btn--primary:hover,
+      .btn--white:hover,
+      .faq__question:hover,
+      .footer__col-links a:hover,
+      .footer__social a:hover,
+      .modal__close:hover,
+      .modal__qty-btn:hover,
+      .modal__submit:hover,
+      .modal__ref-copy:hover,
+      .modal__confirmed-btn:hover,
+      .faq__contact-email:hover { all: revert; }
+
+      .speakers__grid.has-hover .speaker-card { transform: none; }
+      .speakers__grid.has-hover .speaker-card .speaker-card__photo { filter: none; }
+    }
+
+    @media (max-width: 480px) {
+      /* Container */
+      .container { width: min(var(--max-w), 100% - 32px); }
+
+      /* Hero */
+      .hero__center {
+        padding-top: calc(var(--nav-h) + 28px);
+        padding-bottom: 28px;
+      }
+      .hero__btn-primary,
+      .hero__btn-secondary {
+        font-size: 0.75rem;
+        padding: 11px 20px;
       }
 
+      /* Schedule */
+      .schedule__type-cell { display: none; }
+      .schedule__table th:first-child { width: 70px; }
+      .schedule__time-cell { font-size: 0.78rem; }
+      .schedule__title-cell { font-size: 0.92rem; }
+      .schedule__row td { padding: 18px 0; }
+
+      /* About */
+      .about__panel { padding: 32px 20px; }
+      .about__stat-grid { grid-template-columns: 1fr 1fr; }
+
+      /* Modal */
+      .modal { border-radius: 16px; }
+      .modal__header { padding: 20px 20px 0; }
+      .modal__summary { margin: 16px 20px; }
+      .modal__step { padding: 0 20px 20px; }
     }
 
     /* ================================================
@@ -2856,8 +2911,8 @@
             <p class="faq__intro">Không tìm thấy câu trả lời? Đội ngũ chúng tôi phản hồi trong vòng 24 giờ.</p>
             <div class="faq__contact">
               <p class="faq__contact-label">Liên hệ</p>
-              <a href="mailto:hello@tedxlqd.com" class="faq__contact-email">
-                hello@tedxlqd.com
+              <a href="mailto:tedxlequydonbinhdinh@gmail.com" class="faq__contact-email">
+                tedxlequydonbinhdinh@gmail.com
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
               </a>
             </div>
@@ -2957,15 +3012,12 @@
             <p class="footer__col-title">Thông tin</p>
             <ul class="footer__col-links">
               <li><a href="#faq">FAQ</a></li>
-              <li><a href="#">Quy tắc ứng xử</a></li>
-              <li><a href="#">Tài liệu báo chí</a></li>
             </ul>
           </div>
           <div class="footer__col">
             <p class="footer__col-title">Liên hệ</p>
             <ul class="footer__col-links">
-              <li><a href="mailto:hello@tedxlqd.com">hello@tedxlqd.com</a></li>
-              <li><a href="mailto:media@tedxlqd.com">media@tedxlqd.com</a></li>
+              <li><a href="mailto:tedxlequydonbinhdinh@gmail.com">tedxlequydonbinhdinh@gmail.com</a></li>
             </ul>
           </div>
         </nav>
@@ -3076,7 +3128,7 @@
         <h4 class="modal__step-title">Chúng tôi đã nhận được!</h4>
         <p class="modal__step-sub">Ban tổ chức sẽ xác nhận thanh toán và gửi vé về email của bạn trong vòng <strong>24 giờ</strong>.</p>
         <div class="modal__ticket-info" id="ticketInfo" style="margin-bottom:20px;"></div>
-        <p class="modal__save-note">Liên hệ <strong>hello@tedxlqd.com</strong> nếu chưa nhận được sau 24 giờ.</p>
+        <p class="modal__save-note">Liên hệ <strong>tedxlequydonbinhdinh@gmail.com</strong> nếu chưa nhận được sau 24 giờ.</p>
       </div>
 
     </div>
@@ -3468,8 +3520,6 @@ void main(){
       document.addEventListener('click', function(e) {
         const btn = e.target.closest('.open-checkout');
         if (btn) { openModal(btn.dataset.tier, parseInt(btn.dataset.price, 10)); return; }
-        const heroBtn = e.target.closest('.hero__btn-primary');
-        if (heroBtn) { e.preventDefault(); openModal('Premium', 89000); }
       });
 
       modalClose.addEventListener('click', closeModal);
