@@ -8,8 +8,11 @@
     "screenshot:mobile": "node scripts/screenshot.js --mobile"
   },
   "devDependencies": {
-    "puppeteer": "^22.0.0",
     "pixelmatch": "^6.0.0",
-    "pngjs": "^7.0.0"
+    "pngjs": "^7.0.0",
+    "puppeteer": "^22.0.0"
+  },
+  "dependencies": {
+    "sharp": "^0.34.5"
   }
 }

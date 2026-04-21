@@ -390,34 +390,6 @@
       border-bottom: 1px solid var(--border);
     }
 
-    /* YouTube video background */
-    .hero__video-bg {
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-      overflow: hidden;
-      pointer-events: none;
-    }
-
-    .hero__video-bg video {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: max(100%, 177.78vh);
-      height: max(56.25vw, 100%);
-      transform: translate(-50%, -50%);
-      object-fit: cover;
-      pointer-events: none;
-    }
-
-    /* Dark scrim so text stays readable */
-    .hero__video-overlay {
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-      background: rgba(14, 14, 14, 0.62);
-      pointer-events: none;
-    }
 
     /* Subtle grid on top of video */
     .hero::before {
@@ -2380,13 +2352,7 @@
 
     <!-- ===================== HERO ===================== -->
     <section class="hero" id="hero" aria-label="Event hero">
-      <!-- Video background -->
-      <div class="hero__video-bg" aria-hidden="true">
-        <video autoplay muted loop playsinline>
-          <source src="./YTDown.com_YouTube_TEDx-intro-video_Media_JSP7GPU3Eic_001_1080p.mp4" type="video/mp4">
-        </video>
-      </div>
-      <div class="hero__video-overlay" aria-hidden="true"></div>
+
       <div class="hero__bg-bottom" aria-hidden="true"></div>
 
       <!-- Center content -->
@@ -2528,7 +2494,7 @@
               </div>
               <div class="about__stat">
                 <div class="about__stat-num">1</div>
-                <div class="about__stat-label">Cả ngày</div>
+                <div class="about__stat-label">Buổi</div>
               </div>
               <div class="about__stat">
                 <div class="about__stat-num">300+</div>
@@ -2556,7 +2522,7 @@
 
           <article class="speaker-card reveal">
             <div class="speaker-card__portrait">
-              <img src="images/speakers/tong-truong.png" alt="Tông Trương" class="speaker-card__photo">
+              <img src="images/speakers/tong-truong.webp" alt="Tông Trương" class="speaker-card__photo">
             </div>
             <div class="speaker-card__overlay">
               <span class="speaker-card__num">01</span>
@@ -2568,7 +2534,7 @@
 
           <article class="speaker-card reveal reveal-delay-1">
             <div class="speaker-card__portrait">
-              <img src="images/speakers/hien-mai.jpg" alt="Hiền Mai" class="speaker-card__photo" style="object-position: center center;">
+              <img src="images/speakers/hien-mai.webp" alt="Hiền Mai" class="speaker-card__photo" style="object-position: center center;">
             </div>
             <div class="speaker-card__overlay">
               <span class="speaker-card__num">02</span>
@@ -2580,7 +2546,7 @@
 
           <article class="speaker-card reveal reveal-delay-2">
             <div class="speaker-card__portrait">
-              <img src="images/speakers/Gia Han.jpg" alt="Gia Hân" class="speaker-card__photo">
+              <img src="images/speakers/Gia Han.webp" alt="Gia Hân" class="speaker-card__photo">
             </div>
             <div class="speaker-card__overlay">
               <span class="speaker-card__num">03</span>
@@ -2592,11 +2558,11 @@
 
           <article class="speaker-card reveal reveal-delay-3">
             <div class="speaker-card__portrait">
-              <img src="images/speakers/Y Nhi.jpg" alt="Ý Nhi" class="speaker-card__photo">
+              <img src="images/speakers/Y Nhi.webp" alt="Ý Nhi" class="speaker-card__photo">
             </div>
             <div class="speaker-card__overlay">
               <span class="speaker-card__num">04</span>
-              <span class="speaker-card__topic">Hoa Hậu</span>
+              <span class="speaker-card__topic">Hoa hậu</span>
               <h3 class="speaker-card__name">Y Nhi</h3>
               <p class="speaker-card__role">Miss World 2023</p>
             </div>
@@ -2604,7 +2570,7 @@
 
           <article class="speaker-card reveal reveal-delay-4">
             <div class="speaker-card__portrait">
-              <img src="images/speakers/Nhat Minh.jpg" alt="Nhật Minh" class="speaker-card__photo">
+              <img src="images/speakers/Nhat Minh.webp" alt="Nhật Minh" class="speaker-card__photo">
             </div>
             <div class="speaker-card__overlay">
               <span class="speaker-card__num">05</span>
@@ -2616,7 +2582,7 @@
 
           <article class="speaker-card reveal reveal-delay-1">
             <div class="speaker-card__portrait">
-              <img src="images/speakers/Tan Minh.jpg" alt="Tân Minh" class="speaker-card__photo">
+              <img src="images/speakers/Tan Minh.webp" alt="Tân Minh" class="speaker-card__photo">
             </div>
             <div class="speaker-card__overlay">
               <span class="speaker-card__num">06</span>
@@ -2628,7 +2594,7 @@
 
           <article class="speaker-card reveal reveal-delay-2">
             <div class="speaker-card__portrait">
-              <img src="images/speakers/Trần Ngọc Khánh Linh - TexLQD.jpg" alt="Khánh Linh" class="speaker-card__photo">
+              <img src="images/speakers/Trần Ngọc Khánh Linh - TexLQD.webp" alt="Khánh Linh" class="speaker-card__photo">
             </div>
             <div class="speaker-card__overlay">
               <span class="speaker-card__num">07</span>
@@ -2640,7 +2606,7 @@
 
           <article class="speaker-card reveal reveal-delay-3">
             <div class="speaker-card__portrait">
-              <img src="images/speakers/Hien Minh.jpg" alt="Hiền Minh" class="speaker-card__photo">
+              <img src="images/speakers/Hien Minh.webp" alt="Hiền Minh" class="speaker-card__photo">
             </div>
             <div class="speaker-card__overlay">
               <span class="speaker-card__num">08</span>
@@ -2652,7 +2618,7 @@
 
           <article class="speaker-card reveal reveal-delay-4">
             <div class="speaker-card__portrait">
-              <img src="images/speakers/Yen Nhien.jpg" alt="Yên Nhiên" class="speaker-card__photo">
+              <img src="images/speakers/Yen Nhien.webp" alt="Yên Nhiên" class="speaker-card__photo">
             </div>
             <div class="speaker-card__overlay">
               <span class="speaker-card__num">09</span>
@@ -3233,9 +3199,11 @@ void main(){
       });
     });
 
-    // ---- Speaker card hover ----
+    // ---- Speaker card hover / flip ----
     const speakersGrid = document.querySelector('.speakers__grid');
-    if (speakersGrid) {
+    const isTouch = window.matchMedia('(hover: none)').matches;
+
+    if (speakersGrid && !isTouch) {
       document.querySelectorAll('.speaker-card').forEach(card => {
         card.addEventListener('mouseenter', () => {
           speakersGrid.classList.add('has-hover');
