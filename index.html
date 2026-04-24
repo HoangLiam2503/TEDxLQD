@@ -1748,7 +1748,6 @@
       .btn--outline:hover,
       .btn--primary:hover,
       .btn--white:hover,
-      .faq__question:hover,
       .footer__col-links a:hover,
       .footer__social a:hover,
       .modal__close:hover,
@@ -1757,6 +1756,7 @@
       .modal__ref-copy:hover,
       .modal__confirmed-btn:hover,
       .faq__contact-email:hover { all: revert; }
+      .faq__question:hover { color: var(--text-dim); }
 
       .speakers__grid.has-hover .speaker-card { transform: none; }
       .speakers__grid.has-hover .speaker-card .speaker-card__photo { filter: none; }
@@ -3264,7 +3264,7 @@ void main(){
     // ---- Checkout Modal ----
     (function initCheckout() {
       // ---- Config — REPLACE before launch ----
-      const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby6OhXkZaGwMs5h4E_GRkhxYXms2sB_m3G7mgyMzpTol91Dbcmp6jwqGlLMxxmXUwtO/exec';
+      const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxbrqi5pWUh6myFiQ--SQKDyVxaIholE2JCg8UP03SkL4AhNuxigDDUOLG2nxyoenG6/exec';
 
       const BANK = {
         id:      'MB',
