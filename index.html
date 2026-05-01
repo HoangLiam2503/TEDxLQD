@@ -2861,6 +2861,11 @@
           <div class="modal__summary-price" id="modalPrice">89.000 ₫</div>
           <div class="modal__summary-unit">mỗi người</div>
         </div>
+        <div class="modal__qty" id="modalQty">
+          <button type="button" class="modal__qty-btn" id="qtyMinus" aria-label="Giảm">−</button>
+          <span class="modal__qty-num" id="qtyNum">1</span>
+          <button type="button" class="modal__qty-btn" id="qtyPlus" aria-label="Tăng">+</button>
+        </div>
       </div>
 
       <!-- Form + payment -->
@@ -3297,15 +3302,21 @@ void main(){
         totalEl.textContent = fmt(unitPrice * qty);
       }
 
+      const modalQty = document.getElementById('modalQty');
       function showStep(step) {
         stepPayment.classList.remove('active');
         stepTicket.classList.remove('active');
         step.classList.add('active');
+        if (modalQty) modalQty.style.display = (step === stepPayment || step === stepTicket) ? 'none' : '';
       }
+
+      qtyMinus.addEventListener('click', () => { if (qty > 1)  { qty--; qtyNum.textContent = qty; updateTotal(); } });
+      qtyPlus.addEventListener('click',  () => { if (qty < 10) { qty++; qtyNum.textContent = qty; updateTotal(); } });
 
       function openModal(tier, price) {
         unitPrice = price; qty = 1;
-        if (qtyNum) qtyNum.textContent = qty;
+        qtyNum.textContent = qty;
+        if (modalQty) modalQty.style.display = '';
         tierEl.textContent = tier;
         priceEl.textContent = fmt(price);
         updateTotal();
