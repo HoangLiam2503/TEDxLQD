@@ -2586,17 +2586,6 @@
             </div>
           </article>
 
-          <article class="speaker-card reveal reveal-delay-1">
-            <div class="speaker-card__portrait">
-              <img src="images/speakers/hien-mai.webp" alt="Hiền Mai" class="speaker-card__photo" style="object-position: center center;">
-            </div>
-            <div class="speaker-card__overlay">
-              <span class="speaker-card__num">02</span>
-              <span class="speaker-card__topic">Giáo dục</span>
-              <h3 class="speaker-card__name">Hien Mai</h3>
-              <p class="speaker-card__role">Thủ khoa khối A00 năm 2025</p>
-            </div>
-          </article>
 
           <article class="speaker-card reveal reveal-delay-2">
             <div class="speaker-card__portrait">
@@ -2871,11 +2860,6 @@
           <div class="modal__summary-tier" id="modalTier">Premium</div>
           <div class="modal__summary-price" id="modalPrice">89.000 ₫</div>
           <div class="modal__summary-unit">mỗi người</div>
-        </div>
-        <div class="modal__qty">
-          <button type="button" class="modal__qty-btn" id="qtyMinus" aria-label="Giảm">−</button>
-          <span class="modal__qty-num" id="qtyNum">1</span>
-          <button type="button" class="modal__qty-btn" id="qtyPlus" aria-label="Tăng">+</button>
         </div>
       </div>
 
@@ -3321,7 +3305,7 @@ void main(){
 
       function openModal(tier, price) {
         unitPrice = price; qty = 1;
-        qtyNum.textContent = qty;
+        if (qtyNum) qtyNum.textContent = qty;
         tierEl.textContent = tier;
         priceEl.textContent = fmt(price);
         updateTotal();
@@ -3353,8 +3337,6 @@ void main(){
       backdrop.addEventListener('click', e => { if (e.target === backdrop) closeModal(); });
       document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-      qtyMinus.addEventListener('click', () => { if (qty > 1)  { qty--; qtyNum.textContent = qty; updateTotal(); } });
-      qtyPlus.addEventListener('click',  () => { if (qty < 10) { qty++; qtyNum.textContent = qty; updateTotal(); } });
 
       // Copy ref button
       copyRefBtn.addEventListener('click', () => {
