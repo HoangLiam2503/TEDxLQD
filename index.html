@@ -2308,6 +2308,17 @@
       line-height: 1.6;
     }
 
+    .modal__disclaimer-note {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      padding: 12px 14px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-bottom: 16px;
+    }
+
     /* ── Event video player ── */
     .event-video__facade {
       position: relative;
@@ -2784,7 +2795,7 @@
                 <div class="faq__answer">Sự kiện không giới hạn lứa tuổi tham dự. Tuy nhiên với các trường hợp người tham gia có độ tuổi từ 14 trở xuống phải có người giám hộ đi theo.</div>
               </div>
 
-              <div class="faq__item">
+              <div class="faq__item" id="faq-disclaimer">
                 <button class="faq__question">
                   Tuyên bố miễn trừ trách nhiệm cho người tham dự dưới 18 tuổi
                   <span class="faq__toggle" aria-hidden="true"></span>
@@ -2927,6 +2938,8 @@
         </div>
 
         <div class="bank-info" id="bankInfo"></div>
+
+        <p class="modal__disclaimer-note">Bằng việc hoàn tất thanh toán, bạn xác nhận đồng ý với <button type="button" id="disclaimerLink" style="background:none;border:none;padding:0;color:var(--text);font:inherit;font-weight:700;text-decoration:underline;cursor:pointer;">điều khoản miễn trừ trách nhiệm</button>: Ban tổ chức không chịu trách nhiệm pháp lý đối với bất kỳ sự cố, tai nạn hoặc tổn thất nào xảy ra với người tham dự chưa đủ 18 tuổi. Việc tham gia đồng nghĩa với việc chấp nhận toàn bộ điều khoản này.</p>
 
         <button type="button" class="modal__submit" id="confirmedPayBtn">
           Tôi đã chuyển tiền →
@@ -3450,6 +3463,15 @@ void main(){
           document.getElementById('cursor')?.classList.remove('hovering');
           document.getElementById('cursorRing')?.classList.remove('hovering');
         }
+      });
+
+      // ---- Disclaimer link → close modal + scroll to FAQ ----
+      document.getElementById('disclaimerLink')?.addEventListener('click', () => {
+        closeModal();
+        const target = document.getElementById('faq-disclaimer');
+        if (!target) return;
+        target.classList.add('open');
+        setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'center' }), 350);
       });
     })();
   </script>
