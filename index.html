@@ -1728,9 +1728,181 @@
       }
 
       .speakers__grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
       }
 
+    }
+
+    @media (max-width: 480px) {
+      .speakers__grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ================================================
+       SPEAKER PROFILE MODAL
+    ================================================ */
+    .speaker-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s var(--ease-out);
+    }
+
+    .speaker-modal.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .speaker-modal__card {
+      position: relative;
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      background: var(--surface);
+      border: 1px solid var(--border-light);
+      max-width: 660px;
+      width: 100%;
+      overflow: hidden;
+      transform: scale(0.94) translateY(14px);
+      transition: transform 0.35s var(--ease-out);
+    }
+
+    .speaker-modal.open .speaker-modal__card {
+      transform: scale(1) translateY(0);
+    }
+
+    .speaker-modal__photo-wrap {
+      position: relative;
+      aspect-ratio: 3 / 4;
+      flex-shrink: 0;
+    }
+
+    .speaker-modal__photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+    }
+
+    .speaker-modal__body {
+      padding: 40px 36px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0;
+    }
+
+    .speaker-modal__topic {
+      display: inline-flex;
+      align-items: center;
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--red);
+      border: 1px solid rgba(230, 43, 30, .35);
+      background: rgba(230, 43, 30, .08);
+      border-radius: 999px;
+      padding: 4px 12px;
+      margin-bottom: 18px;
+      width: fit-content;
+    }
+
+    .speaker-modal__name {
+      font-family: var(--font-display);
+      font-size: clamp(26px, 3vw, 40px);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+      margin-bottom: 10px;
+    }
+
+    .speaker-modal__role {
+      font-size: 0.88rem;
+      color: var(--text-dim);
+      line-height: 1.6;
+    }
+
+    .speaker-modal__num {
+      margin-top: 32px;
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .speaker-modal__close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(255, 255, 255, .14);
+      border-radius: 50%;
+      background: rgba(0, 0, 0, .5);
+      color: var(--text-dim);
+      font-size: 1rem;
+      line-height: 1;
+      transition: background 0.2s, color 0.2s;
+      z-index: 2;
+    }
+
+    .speaker-modal__close:hover {
+      background: rgba(255, 255, 255, .1);
+      color: var(--text);
+    }
+
+    /* Expand hint on card hover */
+    .speaker-card__expand {
+      position: absolute;
+      bottom: 28px;
+      right: 22px;
+      width: 30px;
+      height: 30px;
+      border: 1px solid rgba(255, 255, 255, .18);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, .06);
+      opacity: 0;
+      transform: translateY(5px);
+      transition: opacity 0.3s, transform 0.3s;
+    }
+
+    .speaker-card:hover .speaker-card__expand {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 580px) {
+      .speaker-modal__card {
+        grid-template-columns: 1fr;
+        max-height: 88vh;
+        overflow-y: auto;
+      }
+
+      .speaker-modal__photo-wrap {
+        aspect-ratio: 4 / 3;
+      }
+
+      .speaker-modal__body {
+        padding: 28px 24px;
+      }
     }
 
     /* ── Touch devices: remove all hover effects & custom cursor ── */
@@ -2585,7 +2757,7 @@
       <div style="width: min(var(--max-w), 100% - 48px); margin-inline: auto;">
         <div class="speakers__grid">
 
-          <article class="speaker-card reveal">
+          <article class="speaker-card reveal" role="button" tabindex="0" aria-label="Xem profile Tông Trương">
             <div class="speaker-card__portrait">
               <img src="images/speakers/tong-truong.webp" alt="Tông Trương" class="speaker-card__photo">
             </div>
@@ -2594,11 +2766,14 @@
               <span class="speaker-card__topic">Giáo dục</span>
               <h3 class="speaker-card__name">Tong Truong</h3>
               <p class="speaker-card__role">Founder Nhà IELTS</p>
+              <span class="speaker-card__expand" aria-hidden="true">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
             </div>
           </article>
 
 
-          <article class="speaker-card reveal reveal-delay-2">
+          <article class="speaker-card reveal reveal-delay-2" role="button" tabindex="0" aria-label="Xem profile Gia Hân">
             <div class="speaker-card__portrait">
               <img src="images/speakers/Gia Han.webp" alt="Gia Hân" class="speaker-card__photo">
             </div>
@@ -2607,10 +2782,13 @@
               <span class="speaker-card__topic">Học sinh</span>
               <h3 class="speaker-card__name">Gia Han</h3>
               <p class="speaker-card__role">Học sinh</p>
+              <span class="speaker-card__expand" aria-hidden="true">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
             </div>
           </article>
 
-          <article class="speaker-card reveal reveal-delay-3">
+          <article class="speaker-card reveal reveal-delay-3" role="button" tabindex="0" aria-label="Xem profile Ý Nhi">
             <div class="speaker-card__portrait">
               <img src="images/speakers/Y Nhi.webp" alt="Ý Nhi" class="speaker-card__photo">
             </div>
@@ -2619,10 +2797,13 @@
               <span class="speaker-card__topic">Hoa hậu</span>
               <h3 class="speaker-card__name">Y Nhi</h3>
               <p class="speaker-card__role">Miss World 2023</p>
+              <span class="speaker-card__expand" aria-hidden="true">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
             </div>
           </article>
 
-          <article class="speaker-card reveal reveal-delay-4">
+          <article class="speaker-card reveal reveal-delay-4" role="button" tabindex="0" aria-label="Xem profile Nhật Minh">
             <div class="speaker-card__portrait">
               <img src="images/speakers/Nhat Minh.webp" alt="Nhật Minh" class="speaker-card__photo">
             </div>
@@ -2631,10 +2812,13 @@
               <span class="speaker-card__topic">Giáo dục</span>
               <h3 class="speaker-card__name">Nhat Minh</h3>
               <p class="speaker-card__role">Giám đốc Điều hành, Minh Khuu Academy</p>
+              <span class="speaker-card__expand" aria-hidden="true">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
             </div>
           </article>
 
-          <article class="speaker-card reveal reveal-delay-1">
+          <article class="speaker-card reveal reveal-delay-1" role="button" tabindex="0" aria-label="Xem profile Tân Minh">
             <div class="speaker-card__portrait">
               <img src="images/speakers/Tan Minh.webp" alt="Tân Minh" class="speaker-card__photo">
             </div>
@@ -2643,10 +2827,13 @@
               <span class="speaker-card__topic">Học sinh</span>
               <h3 class="speaker-card__name">Tan Minh</h3>
               <p class="speaker-card__role">Học sinh</p>
+              <span class="speaker-card__expand" aria-hidden="true">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
             </div>
           </article>
 
-          <article class="speaker-card reveal reveal-delay-2">
+          <article class="speaker-card reveal reveal-delay-2" role="button" tabindex="0" aria-label="Xem profile Khánh Linh">
             <div class="speaker-card__portrait">
               <img src="images/speakers/Trần Ngọc Khánh Linh - TexLQD.webp" alt="Khánh Linh" class="speaker-card__photo">
             </div>
@@ -2655,10 +2842,13 @@
               <span class="speaker-card__topic">Học sinh</span>
               <h3 class="speaker-card__name">Khanh Linh</h3>
               <p class="speaker-card__role">Học sinh</p>
+              <span class="speaker-card__expand" aria-hidden="true">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
             </div>
           </article>
 
-          <article class="speaker-card reveal reveal-delay-3">
+          <article class="speaker-card reveal reveal-delay-3" role="button" tabindex="0" aria-label="Xem profile Hiền Minh">
             <div class="speaker-card__portrait">
               <img src="images/speakers/Hien Minh.webp" alt="Hiền Minh" class="speaker-card__photo">
             </div>
@@ -2667,10 +2857,13 @@
               <span class="speaker-card__topic">Học sinh</span>
               <h3 class="speaker-card__name">Hien Minh</h3>
               <p class="speaker-card__role">Học sinh</p>
+              <span class="speaker-card__expand" aria-hidden="true">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
             </div>
           </article>
 
-          <article class="speaker-card reveal reveal-delay-4">
+          <article class="speaker-card reveal reveal-delay-4" role="button" tabindex="0" aria-label="Xem profile Yên Nhiên">
             <div class="speaker-card__portrait">
               <img src="images/speakers/Yen Nhien.webp" alt="Yên Nhiên" class="speaker-card__photo">
             </div>
@@ -2679,6 +2872,9 @@
               <span class="speaker-card__topic">Học sinh</span>
               <h3 class="speaker-card__name">Yen Nhien</h3>
               <p class="speaker-card__role">Học sinh</p>
+              <span class="speaker-card__expand" aria-hidden="true">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
             </div>
           </article>
 
@@ -2961,6 +3157,22 @@
     </div>
   </div>
 
+  <!-- ===================== SPEAKER PROFILE MODAL ===================== -->
+  <div class="speaker-modal" id="speakerModal" role="dialog" aria-modal="true" aria-labelledby="speakerModalName">
+    <div class="speaker-modal__card" id="speakerModalCard">
+      <div class="speaker-modal__photo-wrap">
+        <img src="" alt="" class="speaker-modal__photo" id="speakerModalPhoto">
+      </div>
+      <div class="speaker-modal__body">
+        <span class="speaker-modal__topic" id="speakerModalTopic"></span>
+        <h3 class="speaker-modal__name" id="speakerModalName"></h3>
+        <p class="speaker-modal__role" id="speakerModalRole"></p>
+        <p class="speaker-modal__num" id="speakerModalNum"></p>
+      </div>
+      <button class="speaker-modal__close" id="speakerModalClose" aria-label="Đóng">&#x2715;</button>
+    </div>
+  </div>
+
   <script>
     // ---- Page Background Shader ----
     (function initPageShader() {
@@ -3228,6 +3440,54 @@ void main(){
         });
       });
     }
+
+    // ---- Speaker profile modal ----
+    (function () {
+      const modal        = document.getElementById('speakerModal');
+      const modalPhoto   = document.getElementById('speakerModalPhoto');
+      const modalTopic   = document.getElementById('speakerModalTopic');
+      const modalName    = document.getElementById('speakerModalName');
+      const modalRole    = document.getElementById('speakerModalRole');
+      const modalNum     = document.getElementById('speakerModalNum');
+      const modalClose   = document.getElementById('speakerModalClose');
+
+      function openModal(card) {
+        const photo = card.querySelector('.speaker-card__photo');
+        const topic = card.querySelector('.speaker-card__topic');
+        const name  = card.querySelector('.speaker-card__name');
+        const role  = card.querySelector('.speaker-card__role');
+        const num   = card.querySelector('.speaker-card__num');
+
+        modalPhoto.src      = photo.src;
+        modalPhoto.alt      = photo.alt;
+        modalTopic.textContent = topic.textContent;
+        modalName.textContent  = photo.alt;
+        modalRole.textContent  = role.textContent;
+        modalNum.textContent   = 'Speaker ' + num.textContent;
+
+        modal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        modalClose.focus();
+      }
+
+      function closeModal() {
+        modal.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+
+      document.querySelectorAll('.speaker-card').forEach(card => {
+        card.addEventListener('click', () => openModal(card));
+        card.addEventListener('keydown', e => {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(card); }
+        });
+      });
+
+      modalClose.addEventListener('click', closeModal);
+      modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+      });
+    })();
 
     // ---- Event video facade ----
     const eventFacade = document.getElementById('eventVideoFacade');
