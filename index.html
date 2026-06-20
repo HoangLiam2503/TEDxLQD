@@ -1758,6 +1758,36 @@
     }
 
     /* ================================================
+       TOAST — sales closed notification
+    ================================================ */
+    .toast {
+      position: fixed;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%) translateY(12px);
+      background: var(--surface);
+      border: 1px solid var(--border-light);
+      border-left: 3px solid var(--red);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      padding: 14px 24px;
+      border-radius: 4px;
+      box-shadow: 0 8px 32px rgba(0,0,0,.5);
+      white-space: nowrap;
+      z-index: 10003;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s, transform 0.25s var(--ease-out);
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+      pointer-events: auto;
+    }
+
+    /* ================================================
        SPEAKER PROFILE MODAL
     ================================================ */
     .speaker-modal {
@@ -3318,6 +3348,10 @@
     </div>
   </div>
 
+  <div class="toast" id="closedToast" role="status" aria-live="polite">
+    🔒 Đã đóng bán vé — Cảm ơn sự quan tâm của bạn!
+  </div>
+
   <script>
     // ---- Page Background Shader ----
     (function initPageShader() {
@@ -3764,10 +3798,15 @@ void main(){
         document.body.style.overflow = '';
       }
 
-      // Open buttons
+      // Open buttons — sales closed, show toast instead
+      const closedToast = document.getElementById('closedToast');
+      let toastTimer;
       document.addEventListener('click', function(e) {
         const btn = e.target.closest('.open-checkout');
-        if (btn) { openModal('Vé tham dự', 139000); return; }
+        if (!btn) return;
+        closedToast.classList.add('show');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => closedToast.classList.remove('show'), 3000);
       });
 
       modalClose.addEventListener('click', closeModal);
