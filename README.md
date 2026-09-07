@@ -1,5 +1,7 @@
 # TEDxLe Quy Don HS Binh Dinh — *Mã*
 
+**Live:** <https://tedxlequydon.org/>
+
 Single-page landing site for **TEDxLe Quy Don HS Binh Dinh 2026 — theme "Mã"**,
 held **June 28, 2026** in Quy Nhon, Vietnam.
 
@@ -16,7 +18,7 @@ No framework, no build step. All HTML, CSS, and JS live in **one single file**: 
 | Markup / style / script | `index.html` (inline CSS + vanilla JS) |
 | Typefaces | Fraunces + Playfair Display (display), Be Vietnam Pro (body) via Google Fonts; `UTM Euphoria` served locally from `font/` |
 | Media | `images/speakers/*.webp`, `video/*.mp4` (hero background) |
-| Hosting | Netlify (`netlify.toml`, publishes the repo root) |
+| Hosting | Netlify → <https://tedxlequydon.org/> (`netlify.toml`, publishes the repo root) |
 | Tooling (dev-only) | Puppeteer + pixelmatch for screenshot diffing, sharp for image compression |
 
 ---
@@ -99,7 +101,7 @@ Non-negotiables:
 
 ## Deploying
 
-Push to `main` and Netlify builds automatically. `.netlifyignore` keeps `scripts/`, `refs/`,
+Push to `main` and Netlify builds and publishes to <https://tedxlequydon.org/> automatically. `.netlifyignore` keeps `scripts/`, `refs/`,
 `docs/`, and `*.md` out of the production bundle. Images and fonts are cached for a year
 (immutable); HTML is cached for an hour.
 
