@@ -1,24 +1,37 @@
+// Usage: node scripts/compress-images.mjs <file|dir> <outDir> <width> [slug]
+//   dir  → every jpg/jpeg/png inside, output keeps the source basename
+//   file → one image, output named <slug>.webp (or the source basename)
+// HEIC is not readable by sharp: convert first with `sips -s format jpeg in.HEIC --out x.jpg`.
 import sharp from 'sharp';
-import { readdirSync, statSync } from 'fs';
+import { readdirSync, statSync, mkdirSync } from 'fs';
 import { join, extname, basename } from 'path';
 
-const DIR = 'images/speakers';
-const TARGET_WIDTH = 600;
-const QUALITY = 82;
+const [src, outDir, widthArg, slug] = process.argv.slice(2);
+if (!src || !outDir || !widthArg) {
+  console.error('Usage: node scripts/compress-images.mjs <file|dir> <outDir> <width> [slug]');
+  process.exit(1);
+}
 
-const files = readdirSync(DIR).filter(f => /\.(jpg|jpeg|png)$/i.test(f));
+const TARGET_WIDTH = Number(widthArg);
+const QUALITY = 80;
+mkdirSync(outDir, { recursive: true });
 
-for (const file of files) {
-  const input = join(DIR, file);
-  const output = join(DIR, basename(file, extname(file)) + '.webp');
+const inputs = statSync(src).isDirectory()
+  ? readdirSync(src).filter(f => /\.(jpe?g|png)$/i.test(f)).map(f => join(src, f))
+  : [src];
+
+for (const input of inputs) {
+  const name = slug && inputs.length === 1 ? slug : basename(input, extname(input));
+  const output = join(outDir, name + '.webp');
   const before = statSync(input).size;
 
   await sharp(input)
+    .rotate() // honour EXIF orientation
     .resize(TARGET_WIDTH, null, { withoutEnlargement: true })
     .webp({ quality: QUALITY })
     .toFile(output);
 
   const after = statSync(output).size;
   const pct = Math.round((1 - after / before) * 100);
-  console.log(`${file.padEnd(50)} ${(before/1024).toFixed(0).padStart(6)} KB → ${(after/1024).toFixed(0).padStart(5)} KB  (-${pct}%)`);
+  console.log(`${basename(input).padEnd(50)} ${(before / 1024).toFixed(0).padStart(6)} KB → ${(after / 1024).toFixed(0).padStart(5)} KB  (-${pct}%)`);
 }

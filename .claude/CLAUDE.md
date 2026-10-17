@@ -14,11 +14,11 @@
 ## 2. PROJECT CONTEXT
 
 ```
-- Name:            TEDxLe Quy Don HS Binh Dinh — Mã
-- Type:            Single-page event landing page
+- Name:            TEDxLe Quy Don Gia Lai Youth — identity "Nét" (key visual: images/Theme.jpg)
+- Type:            Single-page organisation site (past season "Mã", 28.06.2026, is over)
 - Stack:           Plain HTML + CSS + vanilla JS (single file: index.html)
 - Target audience: Students, local community, Gia Lai province
-- Primary goal:    Event info + ticket registration
+- Primary goal:    Introduce the core team + recap season Mã (no ticketing)
 - Local URL:       Open index.html directly in browser (no server needed)
 ```
 
@@ -46,11 +46,15 @@ cp screenshots/current.png refs/target-desktop.png  # promote to reference
 ## 4. GOTCHAS
 
 - Single file architecture: all CSS, HTML, JS in `index.html`. No separate files.
-- Vietnamese typography: use Fraunces (display) + Be Vietnam Pro (body). Never Bebas Neue.
-- Modal HTML must come **before** `<script>` tag or getElementById returns null.
-- Custom cursor z-index must exceed modal z-index (cursor: 10002, modal: 10000).
-- Video background: local file at `./YTDown.com_YouTube_TEDx-intro-video_Media_JSP7GPU3Eic_001_1080p.mp4`
-- Bank/MoMo account numbers in checkout modal are placeholders — replace before launch.
+- Vietnamese typography: Grenze Gotisch (blackletter titles) + Be Vietnam Pro (body) + Playfair Display
+  italic (accents). Most blackletter fonts (Pirata One, UnifrakturMaguntia) and Bodoni Moda have NO
+  Vietnamese subset — check Google Fonts subsets before swapping. Never Bebas Neue.
+- Light theme only (no dark mode). `--plum-net` (#c35b8e) is for large display text only (3.7:1).
+- Dialog/lightbox HTML must come **before** `<script>` tag or getElementById returns null.
+- SVG illustrations reuse the `<defs>` sprite at top of `<body>` (`#plum`, `#sakura`, `#cloud`, `#fall`…).
+- Photos: originals in `images/_source/` (gitignored, not deployed), served copies in `images/team/` (720px) and `images/recap/` (1600 + -800).
+  Re-encode with `node scripts/compress-images.mjs <src> <outDir> <width> [slug]`.
+  sharp can't read HEIC — convert first: `sips -s format jpeg in.HEIC --out x.jpg`.
 
 ---
 
@@ -73,6 +77,8 @@ cp screenshots/current.png refs/target-desktop.png  # promote to reference
 ## 6. CHANGELOG
 
 ```
+- 2026-10-17: Rebrand to "Nét" (TEDxLe Quy Don Gia Lai Youth): core team + recap Mã, removed ticketing (Lam).
+- 2026-10-16: Redesign to Iris Folio "Dusk" (light + dark), removed shader/cursor (Lam).
 - 2026-04-12: Split rules into .claude/rules/ component files (Lam).
 - 2026-04-07: Rewrote around screenshot-driven loop as primary workflow (Lam).
 ```
