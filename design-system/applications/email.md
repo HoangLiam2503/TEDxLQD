@@ -3,7 +3,7 @@
 ## Triggered emails (via Google Apps Script / GmailApp)
 
 ### Order confirmation
-- **From:** TEDxLe Quy Don HS Binh Dinh `<tedxlequydonbinhdinh@gmail.com>`
+- **From:** TEDxLe Quy Don HS Binh Dinh `<tedxlequydongialai@gmail.com>`
 - **Display name:** TEDxLe Quy Don HS Binh Dinh
 - **Subject:** Xác nhận đặt vé — TEDxLe Quy Don HS Binh Dinh 2026
 - **Tone:** Warm + professional. Second person "bạn."
@@ -13,7 +13,7 @@
 - Mã đơn hàng (TEDX2026-XXXX)
 - Số lượng vé + tổng tiền
 - Ngày sự kiện: 28/06/2026 · Gia Lai
-- Contact: tedxlequydonbinhdinh@gmail.com
+- Contact: tedxlequydongialai@gmail.com
 
 ## HTML email constraints
 - Inline CSS only (no `<style>` blocks for Gmail)

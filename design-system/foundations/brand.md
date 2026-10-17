@@ -12,7 +12,7 @@
 - **Speakers:** 8
 - **Audience:** 150+ attendees
 - **Ticket price:** 139,000 VND
-- **Contact:** tedxlequydonbinhdinh@gmail.com
+- **Contact:** tedxlequydongialai@gmail.com
 
 ## Visual personality
 Dark. Editorial. Confident. The design communicates that a world-class event is happening in Gia Lai — not a school project, a real TEDx. The near-black canvas and editorial type signal ambition; the TED red grounds it in the global brand.

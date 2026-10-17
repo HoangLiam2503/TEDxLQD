@@ -28,5 +28,5 @@ Load this file first whenever producing any asset for this brand.
 - Theme: Mã
 - Date: June 28, 2026 · Gia Lai, Vietnam
 - Ticket: 139,000 VND · 150+ attendees · 8 speakers
-- Contact: tedxlequydonbinhdinh@gmail.com
+- Contact: tedxlequydongialai@gmail.com
 - Site: https://tedxlequydon.org
