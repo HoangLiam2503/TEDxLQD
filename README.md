@@ -1,117 +1,118 @@
 # TEDxLe Quy Don HS Binh Dinh — *Mã*
 
+> 🇬🇧 [Read this in English](README.en.md)
+
 **Live:** <https://tedxlequydon.org/>
 
-Single-page landing site for **TEDxLe Quy Don HS Binh Dinh 2026 — theme "Mã"**,
-held **June 28, 2026** in Quy Nhon, Vietnam.
+Landing page một trang cho sự kiện **TEDxLe Quy Don HS Binh Dinh 2026 — chủ đề "Mã"**,
+ngày **28/06/2026** tại Quy Nhơn.
 
-The page covers event information (speakers, schedule, FAQ) and the ticket registration flow.
+Trang cung cấp thông tin sự kiện (diễn giả, lịch trình, FAQ) và luồng đăng ký vé.
 
 ---
 
 ## Stack
 
-No framework, no build step. All HTML, CSS, and JS live in **one single file**: `index.html` (~3,900 lines).
+Không framework, không build step. Toàn bộ HTML + CSS + JS nằm trong **một file duy nhất**: `index.html` (~3.900 dòng).
 
-| Piece | Details |
+| Thành phần | Chi tiết |
 |---|---|
 | Markup / style / script | `index.html` (inline CSS + vanilla JS) |
-| Typefaces | Fraunces + Playfair Display (display), Be Vietnam Pro (body) via Google Fonts; `UTM Euphoria` served locally from `font/` |
+| Font chữ | Fraunces + Playfair Display (display), Be Vietnam Pro (body) — Google Fonts; `UTM Euphoria` local ở `font/` |
 | Media | `images/speakers/*.webp`, `video/*.mp4` (hero background) |
-| Hosting | Netlify → <https://tedxlequydon.org/> (`netlify.toml`, publishes the repo root) |
-| Tooling (dev-only) | Puppeteer + pixelmatch for screenshot diffing, sharp for image compression |
+| Deploy | Netlify → <https://tedxlequydon.org/> (`netlify.toml`, publish thư mục gốc) |
+| Tooling (dev-only) | Puppeteer + pixelmatch cho screenshot diff, sharp cho nén ảnh |
 
 ---
 
-## Running locally
+## Chạy local
 
 ```bash
-npm install          # only needed for the screenshot / image tooling
+npm install          # chỉ cần cho tooling screenshot/ảnh
 npm run dev          # http://localhost:3000 (python3 -m http.server)
 ```
 
-A server isn't strictly required — opening `index.html` directly in a browser works too.
+Không cần server cũng được — mở thẳng `index.html` trong trình duyệt là chạy.
 
 ---
 
 ## Scripts
 
 ```bash
-npm run dev                # serve on http://localhost:3000
-npm run screenshot         # capture 1440×900, diff against refs/target-desktop.png
-npm run screenshot:mobile  # capture 390×844, diff against refs/target-mobile.png
-node scripts/compress-images.mjs   # convert images/speakers/* → .webp (600px wide, q82)
+npm run dev                # serve tại http://localhost:3000
+npm run screenshot         # chụp 1440×900, diff với refs/target-desktop.png
+npm run screenshot:mobile  # chụp 390×844, diff với refs/target-mobile.png
+node scripts/compress-images.mjs   # convert images/speakers/* → .webp (600px, q82)
 ```
 
-`screenshot.js` exits with code 1 when the pixel mismatch exceeds 5%. Output lands in
-`screenshots/` (`current.png`, `diff.png`) — that directory is gitignored.
+`screenshot.js` thoát với mã lỗi 1 nếu sai lệch pixel > 5%. Kết quả ghi vào `screenshots/`
+(`current.png`, `diff.png`) — thư mục này đã được gitignore.
 
-**Creating the reference images for the first time:**
+**Tạo reference lần đầu:**
 
 ```bash
 npm run dev                                          # terminal 1
-npm run screenshot                                   # terminal 2 (no ref yet)
-cp screenshots/current.png refs/target-desktop.png   # promote to reference
+npm run screenshot                                   # terminal 2 (chưa có ref)
+cp screenshots/current.png refs/target-desktop.png   # promote thành reference
 ```
 
 ---
 
-## Directory layout
+## Cấu trúc thư mục
 
 ```
 .
-├── index.html              ← the entire page: HTML + CSS + JS
-├── images/speakers/        ← speaker photos (original .jpg + compressed .webp)
-├── video/                  ← hero background video
+├── index.html              ← toàn bộ trang: HTML + CSS + JS
+├── images/speakers/        ← ảnh diễn giả (.jpg gốc + .webp đã nén)
+├── video/                  ← video nền hero
 ├── font/                   ← UTM-Euphoria.ttf
-├── QR CODE/                ← payment QR code
-├── docs/design-system.md   ← color / typography tokens extracted from :root
-├── design-system/          ← full brand kit (tokens, voice, components)
+├── QR CODE/                ← QR thanh toán
+├── docs/design-system.md   ← token màu / typography trích từ :root
+├── design-system/          ← brand kit đầy đủ (tokens, voice, components)
 ├── scripts/                ← screenshot.js, compress-images.mjs
-├── refs/                   ← reference images for screenshot diffing (committed)
-├── screenshots/            ← throwaway output (gitignored)
+├── refs/                   ← ảnh reference cho screenshot diff (commit vào git)
+├── screenshots/            ← output tạm (gitignored)
 └── netlify.toml            ← publish dir + cache headers
 ```
 
 ---
 
-## Page sections
+## Các section của trang
 
 `#hero` → `#about` → `#speakers` → `#schedule` → `#tickets` → `#faq`
 
-The inline JS handles: countdown timer, speaker modal, custom cursor, canvas background shader,
-scroll animations, and the "ticket sales closed" toast (`#closedToast`).
+JS trong trang xử lý: countdown, modal diễn giả, custom cursor, shader nền canvas,
+scroll animation, và toast "đã đóng bán vé" (`#closedToast`).
 
 ---
 
 ## Design system
 
-`docs/design-system.md` is the source of truth for color and typography tokens — update it
-whenever the `:root` variables in `index.html` change.
+`docs/design-system.md` là nguồn chuẩn cho token màu/typography — cập nhật file này mỗi khi
+đổi biến trong `:root` của `index.html`.
 
-The full brand kit (logo, voice, component specs, Tailwind preset) lives in `design-system/` —
-read `design-system/CLAUDE.md` before producing any new asset.
+Brand kit đầy đủ (logo, voice, component spec, Tailwind preset) nằm ở `design-system/` —
+đọc `design-system/CLAUDE.md` trước khi tạo asset mới.
 
-Non-negotiables:
-- **Never** use Inter / Roboto / Arial / system-ui as a headline font.
-- Every color goes through a CSS custom property — no hex values scattered through the file.
-- Backgrounds are always layered (gradient / noise), never flat `#fff` or `#000`.
-
----
-
-## Deploying
-
-Push to `main` and Netlify builds and publishes to <https://tedxlequydon.org/> automatically. `.netlifyignore` keeps `scripts/`, `refs/`,
-`docs/`, and `*.md` out of the production bundle. Images and fonts are cached for a year
-(immutable); HTML is cached for an hour.
+Nguyên tắc bắt buộc:
+- **Không** dùng Inter / Roboto / Arial / system-ui làm font tiêu đề.
+- Mọi token màu đi qua CSS custom properties, không hardcode hex rải rác.
+- Nền luôn có layer (gradient / noise), không dùng `#fff` hay `#000` phẳng.
 
 ---
 
-## Notes for anyone editing this
+## Deploy
 
-- **Single file** — don't split CSS/JS into separate files; everything stays in `index.html`.
-- Modal HTML **must** appear before the `<script>` tag, otherwise `getElementById` returns `null`.
-- The custom cursor's `z-index` must stay above the modal's (cursor: 10002, modal: 10000).
-- Bank / MoMo account numbers in the checkout flow are **placeholders** — replace them before sales open.
-- Adding a speaker photo: drop the `.jpg`/`.png` into `images/speakers/`, run `compress-images.mjs`,
-  then reference the generated `.webp` in the HTML.
+Push lên `main` → Netlify tự build và publish lên <https://tedxlequydon.org/>. `.netlifyignore` loại `scripts/`, `refs/`, `docs/`, `*.md`
+khỏi bundle production. Ảnh và font được cache 1 năm (immutable), HTML cache 1 giờ.
+
+---
+
+## Lưu ý khi sửa code
+
+- **Một file duy nhất** — đừng tách CSS/JS ra file riêng, mọi thứ nằm trong `index.html`.
+- HTML của modal **phải** đặt trước thẻ `<script>`, nếu không `getElementById` trả về `null`.
+- `z-index` của custom cursor phải lớn hơn modal (cursor: 10002, modal: 10000).
+- Số tài khoản ngân hàng / MoMo trong luồng checkout hiện là **placeholder** — thay trước khi mở bán.
+- Ảnh diễn giả: thêm file `.jpg`/`.png` vào `images/speakers/`, chạy `compress-images.mjs`,
+  rồi tham chiếu bản `.webp` trong HTML.

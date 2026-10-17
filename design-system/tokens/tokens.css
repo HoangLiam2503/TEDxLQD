@@ -1,0 +1,42 @@
+/* TEDxLe Quy Don HS Binh Dinh — Design Tokens
+   Source: tedxlequydon.org · Extracted 2026-05-17
+   Import this file as the single source of truth for any asset. */
+
+:root {
+  /* ── Color ── */
+  --color-bg:           #141414;
+  --color-surface:      #1c1d1d;
+  --color-border:       #272828;
+  --color-border-light: #333434;
+  --color-red:          #eb0028;
+  --color-red-dim:      rgba(235, 0, 40, 0.15);
+  --color-text:         #f0ede8;
+  --color-text-dim:     #a8a8a8;
+  --color-text-muted:   #b8ab96;
+
+  /* ── Typography ── */
+  --font-display: 'Fraunces', serif;
+  --font-serif:   'Playfair Display', serif;
+  --font-body:    'Be Vietnam Pro', sans-serif;
+
+  --text-hero:    clamp(88px, 20vw, 240px);
+  --text-section: clamp(40px, 6vw, 80px);
+  --text-body:    clamp(0.88rem, 1.2vw, 1.05rem);
+  --text-label:   0.6rem;
+
+  --leading-tight: 1.0;
+  --leading-body:  1.6;
+  --leading-loose: 1.85;
+
+  /* ── Layout ── */
+  --nav-h:      60px;
+  --max-w:      1280px;
+  --section-py: clamp(88px, 11vw, 160px);
+
+  /* ── Motion ── */
+  --ease-out:    cubic-bezier(.165, .84, .44, 1);
+  --ease-in-out: cubic-bezier(.455, .03, .515, .955);
+  --dur-fast:    160ms;
+  --dur-base:    240ms;
+  --dur-reveal:  900ms;
+}
